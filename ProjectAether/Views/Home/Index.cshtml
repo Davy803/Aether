@@ -1,0 +1,78 @@
+﻿@using System.Web.Optimization;
+@using ProjectAether
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="/ProjectAether/libs/knockout.debug.js"></script>
+    <script src="/ProjectAether/app/Helpers.js"></script>
+    @Scripts.Render("~/Bundles/ProjectAether")
+    @Styles.Render("~/Bundles/Styles")
+</head>
+<body>
+    <p>
+        Current player: <span data-bind="text: currentPlayer().name"></span>
+    </p>
+    <div data-bind="template: {name: 'playerTemplate', data: player1}">
+    </div>
+    <div data-bind="with: board">
+        <div class="board" data-bind="foreach: rows">
+            <div class="row" data-bind="foreach: $data">
+
+                <div class="space" data-bind="css: {'valid-target': isCurrentlyValidTarget, 'occupied': value, player1: owner() == $root.player1, player2: owner() == $root.player2 }, click: $parents[2].cb_selectTarget">
+                    <div class="top"></div>
+                    <div class="content" data-bind="template: {name: 'spaceTemplate' }"></div>
+                    <div class="bottom"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-bind="template: {name: 'playerTemplate', data: player2}">
+    </div>
+    @using (Html.Template("playerTemplate"))
+    {
+        <h3 data-bind="text: name"></h3>
+        <p>
+            Aether: <span data-bind="text: mana"></span>
+        </p>
+        <div data-bind="visible: $parent.currentPlayer() == $data">
+            <div data-bind="foreach: cardsInHand">
+                <div class="card" data-bind="css: {selected: isSelected, 'valid-target': isCurrentlyValidTarget, player1: owner == $root.player1, player2: owner == $root.player2 }, click: $parents[1].cb_selectTarget">
+                    <div data-bind="template: {name: 'cardTemplate' }"></div>
+                </div>
+            </div>
+            <!-- ko with: $parent.endTurnButton -->
+            <button class="button" data-bind="css: {'valid-target': isCurrentlyValidTarget }, click: $parents[1].cb_selectTarget">End Turn</button>
+            <!-- /ko -->
+            <!-- ko with: $parent.cancelButton -->
+            <button class="button" data-bind="css: {'valid-target': isCurrentlyValidTarget }, click: $parents[1].cb_selectTarget">Cancel</button>
+            <!-- /ko -->
+        </div>
+    }
+
+    @using (Html.Template("spaceTemplate"))
+    {
+        <!-- ko template: {name: 'creatureTemplate', data: value, if: value} -->
+        <!-- /ko -->
+    }
+    
+    @using (Html.Template("creatureTemplate"))
+    {
+        <div class="creature" data-bind="css: {player1: controller() === $root.player1, player2: controller() === $root.player2 }">
+        <div data-bind="text: name"></div>
+        <div>
+            ♆<span data-bind="text: damage.current"></span>
+            ♥<span data-bind="text: life.current"></span>
+            ♐<span data-bind="text: movement.current"></span>
+        </div>
+        </div>
+        
+        
+    }
+    @using (Html.Template("cardTemplate"))
+    {
+        <div class="card-name" data-bind="text: name"></div>
+        <div class="card-cost" data-bind="text: cost"></div>
+    }
+</body>
+</html>

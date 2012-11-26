@@ -1,0 +1,244 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 17, ../../../../../../AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+/* line 22, ../../../../../../AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../AppData/Local/Temp/Mindscape/WebWorkbench/Ruby193/Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 28, ../sass/screen.scss */
+.actionable, .card, .button {
+  border: 1px solid black;
+  background-color: wheat;
+}
+/* line 31, ../sass/screen.scss */
+.actionable.valid-target, .valid-target.card, .valid-target.button {
+  background-color: limegreen;
+}
+/* line 33, ../sass/screen.scss */
+.actionable.valid-target:hover, .valid-target.card:hover, .valid-target.button:hover {
+  background-color: lightblue;
+  cursor: pointer;
+}
+/* line 38, ../sass/screen.scss */
+.actionable.selected, .selected.card, .selected.button {
+  background-color: #e9b759;
+}
+
+/* line 43, ../sass/screen.scss */
+.card {
+  width: 150px;
+  height: 100px;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 49, ../sass/screen.scss */
+.card .card-name {
+  float: left;
+}
+/* line 52, ../sass/screen.scss */
+.card .card-cost {
+  float: right;
+}
+
+/* line 57, ../sass/screen.scss */
+.button {
+  display: inline;
+}
+
+/* line 75, ../sass/screen.scss */
+.board {
+  display: table;
+  -webkit-transform: perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px);
+  -moz-transform: perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px);
+  -ms-transform: perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px);
+  -o-transform: perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px);
+  transform: perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px);
+}
+/* line 78, ../sass/screen.scss */
+.board .row {
+  clear: both;
+}
+/* line 80, ../sass/screen.scss */
+.board .row .space {
+  display: inline-block;
+  float: left;
+  width: 104px;
+  margin-right: 4px;
+  height: 120px;
+  margin-top: -26px;
+}
+/* line 88, ../sass/screen.scss */
+.board .row .space .top {
+  display: block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border-bottom: 30px solid wheat;
+  border-left: 52px dotted transparent;
+  border-right: 52px dotted transparent;
+}
+/* line 98, ../sass/screen.scss */
+.board .row .space .content {
+  display: block;
+  width: 104px;
+  height: 60px;
+  text-align: center;
+  background: wheat;
+  font-size: 24px;
+}
+/* line 106, ../sass/screen.scss */
+.board .row .space .bottom {
+  display: block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border-top: 30px solid wheat;
+  border-left: 52px dotted transparent;
+  border-right: 52px dotted transparent;
+}
+/* line 64, ../sass/screen.scss */
+.board .row .space.player1 .top {
+  border-bottom-color: #daf5b3;
+}
+/* line 67, ../sass/screen.scss */
+.board .row .space.player1 .content {
+  background: #daf5b3;
+}
+/* line 70, ../sass/screen.scss */
+.board .row .space.player1 .bottom {
+  border-top-color: #daf5b3;
+}
+/* line 64, ../sass/screen.scss */
+.board .row .space.player2 .top {
+  border-bottom-color: #f5b3b9;
+}
+/* line 67, ../sass/screen.scss */
+.board .row .space.player2 .content {
+  background: #f5b3b9;
+}
+/* line 70, ../sass/screen.scss */
+.board .row .space.player2 .bottom {
+  border-top-color: #f5b3b9;
+}
+/* line 121, ../sass/screen.scss */
+.board .row .space .creature {
+  height: 100%;
+}
+/* line 123, ../sass/screen.scss */
+.board .row .space .creature.player1 {
+  background: #afe959;
+}
+/* line 126, ../sass/screen.scss */
+.board .row .space .creature.player2 {
+  background: #e95967;
+}
+/* line 64, ../sass/screen.scss */
+.board .row .space.valid-target .top {
+  border-bottom-color: limegreen;
+}
+/* line 67, ../sass/screen.scss */
+.board .row .space.valid-target .content {
+  background: limegreen;
+}
+/* line 70, ../sass/screen.scss */
+.board .row .space.valid-target .bottom {
+  border-top-color: limegreen;
+}
+/* line 133, ../sass/screen.scss */
+.board .row .space.valid-target:hover {
+  cursor: pointer;
+}
+/* line 64, ../sass/screen.scss */
+.board .row .space.valid-target:hover .top {
+  border-bottom-color: lightblue;
+}
+/* line 67, ../sass/screen.scss */
+.board .row .space.valid-target:hover .content {
+  background: lightblue;
+}
+/* line 70, ../sass/screen.scss */
+.board .row .space.valid-target:hover .bottom {
+  border-top-color: lightblue;
+}
+/* line 64, ../sass/screen.scss */
+.board .row .space:hover .top {
+  border-bottom-color: #efca86;
+}
+/* line 67, ../sass/screen.scss */
+.board .row .space:hover .content {
+  background: #efca86;
+}
+/* line 70, ../sass/screen.scss */
+.board .row .space:hover .bottom {
+  border-top-color: #efca86;
+}
+/* line 143, ../sass/screen.scss */
+.board .row:first-child .space {
+  margin-top: 0;
+}
+/* line 146, ../sass/screen.scss */
+.board .row:nth-child(odd) .space:nth-child(1) {
+  padding-left: 54px;
+}

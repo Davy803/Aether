@@ -1,0 +1,150 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/css3/transform";
+
+$hoverColor: lightblue;
+
+$spaceNormalColor : wheat;
+$player1Color : adjust-hue($spaceNormalColor, 45deg);
+$player2Color : adjust-hue($spaceNormalColor, -45deg);
+$clickableColor : limegreen;
+$spaceOccupiedColor : darken($spaceNormalColor, 20%);
+$player1OccupiedColor : adjust-hue($spaceOccupiedColor, 45deg);
+$player2OccupiedColor : adjust-hue($spaceOccupiedColor, -45deg);
+
+$padding: 4px;
+$spaceHeight : 120px;
+$halfSpaceHeight : $spaceHeight / 2;
+$quarterSpaceHeight : $spaceHeight / 4;
+$spaceWidth : 104px;
+$halfSpaceWidth : $spaceWidth / 2;
+$marginTop: -($spaceHeight / 4 - $padding);
+$paddingLeft: ($spaceWidth + $padding) / 2;
+
+.actionable {
+	border: 1px solid black;
+	background-color: $spaceNormalColor;
+	&.valid-target  {
+		background-color: $clickableColor;
+		&:hover  {
+			background-color: $hoverColor;
+			cursor: pointer;
+		}
+	}	
+	&.selected  {
+		background-color: $spaceOccupiedColor;
+	}
+}
+
+.card  {
+	width: 150px;
+	height: 100px;
+	display: inline-block;
+	vertical-align: top;
+	@extend .actionable;
+	.card-name {
+		float: left;
+	}
+	.card-cost {
+		float: right;
+	}
+}
+
+.button {
+	display: inline;
+	@extend .actionable;
+}
+
+
+@mixin hexBackgroundColor($color)  {
+	.top  {
+		border-bottom-color: $color;
+	}
+	.content  {
+		background: $color;
+	}
+	.bottom  {
+		border-top-color: $color;
+	}
+}
+
+.board  {
+	display: table;
+	@include transform(perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px));
+	.row  {
+		clear: both;
+		.space  {
+			display: inline-block;
+			float: left;
+			width: $spaceWidth;
+			margin-right: $padding;
+			height: $spaceHeight;
+			margin-top: $marginTop;
+			
+			.top  {
+				display: block;
+				width: 0;
+				height: 0;
+				overflow: hidden;
+				border-bottom: $quarterSpaceHeight solid $spaceNormalColor;
+				border-left: $halfSpaceWidth dotted transparent;
+				border-right: $halfSpaceWidth dotted transparent;   
+
+			}
+			.content  {
+				display: block;
+				width: $spaceWidth;
+				height: $halfSpaceHeight;
+				text-align: center;
+				background: $spaceNormalColor;
+				font-size: 24px;
+			}
+			.bottom  {
+				display: block;
+				width: 0;
+				height: 0;
+				overflow: hidden;
+				border-top: $quarterSpaceHeight solid $spaceNormalColor;
+				border-left: $halfSpaceWidth dotted transparent;
+				border-right: $halfSpaceWidth dotted transparent;    
+			}
+			&.player1 {
+				@include hexBackgroundColor($player1Color);
+			}
+			&.player2 {
+				@include hexBackgroundColor($player2Color);
+			}
+			.creature {
+				height: 100%;
+				&.player1  {
+					background: $player1OccupiedColor;
+				}	
+				&.player2  {
+					background: $player2OccupiedColor;
+				}	
+			}
+			
+			&.valid-target  {
+				@include hexBackgroundColor($clickableColor);
+				&:hover  {
+					@include hexBackgroundColor($hoverColor);
+					cursor: pointer;
+				}
+			}
+			&:hover {
+				@include hexBackgroundColor(darken($spaceNormalColor, 10%));
+			}		
+			
+		}
+		&:first-child .space  {
+			margin-top: 0;
+		}
+		&:nth-child(odd) .space:nth-child(1)  { 
+			padding-left: $paddingLeft;
+		}
+	}
+}
