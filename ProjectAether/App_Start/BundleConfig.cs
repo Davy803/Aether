@@ -33,12 +33,12 @@ namespace ProjectAether
 
             var commonScriptsBundle = new Bundle("~/Bundles/ProjectAether");
             commonScriptsBundle.Include(//"~/ProjectAether/libs/knockout.debug.js",
-                "~/ProjectAether/libs/underscore.js",
-                "~/ProjectAether/libs/underscore-ko-1.1.0.js",
-                "~/ProjectAether/libs/hash/jshashset.js",
-                "~/ProjectAether/libs/hash/jshashtable.js",
-                "~/ProjectAether/app/helper.js")
-                   .IncludeDirectory("~/ProjectAether/app", "*.js", true);
+                "~/libs/underscore.js",
+                "~/libs/underscore-ko-1.1.0.js",
+                "~/libs/hash/jshashset.js",
+                "~/libs/hash/jshashtable.js",
+                "~/app/helper.js")
+                   .IncludeDirectory("~/app", "*.js", true);
             //"~/ProjectAether/app/*/*.js")
             //"~/ProjectAether/app/Cards/*.js",
             //"~/ProjectAether/app/Decks/*.js")
