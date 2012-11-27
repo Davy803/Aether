@@ -4,8 +4,9 @@
 
 module ProjectAether {
     export class Space implements Target, Selectable{
-        private _isCurrentlyValidTarget = ko.observable(false);
-        isCurrentlyValidTarget: KnockoutComputedBool;
+        private _targetAction = ko.observable(TargetActions.None);
+        targetAction: KnockoutComputedString;
+        //targetAction = ko.observable(TargetActions.None);
         isSelected: KnockoutComputedBool ;
         private _value: KnockoutObservableAny = ko.observable(null);
         value: KnockoutComputed;
@@ -13,9 +14,9 @@ module ProjectAether {
         constructor (public y: number, public x: number, owner: Player) {
             this.value = ko.computed(() =>this._value());
             this.owner(owner);
-            this.isCurrentlyValidTarget = ko.computed({
-                read: () => this._isCurrentlyValidTarget() || this._value() && this._value().isCurrentlyValidTarget(),
-                write: (newValue) => this._isCurrentlyValidTarget(newValue)
+            this.targetAction = ko.computed({
+                read: () => this._targetAction() || this._value() && this._value().targetAction(),
+                write: (newValue) => this._targetAction(newValue)
             });
             this.isSelected = ko.computed((): bool => this._value() && this._value().isSelected());
         }

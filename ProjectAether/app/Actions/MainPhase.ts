@@ -6,18 +6,24 @@ module ProjectAether.Actions {
         constructor (private game: Game) {
 
         }
-        targetValidator(target: Target) {
+        getTargetAction(target: Target) : string {
             if (target instanceof CardBase) {
-                return this._canPlayCard(<Card>target);
+                return this._canPlayCard(<Card>target)
+                        ? TargetActions.Place
+                        : TargetActions.None;
             }
             if (target instanceof Space) {
                 target = (<Space>target).value();
             }
             if (target instanceof Creature) {
-                return this._canMoveCreature(<Creature>target);
+                return this._canMoveCreature(<Creature>target)
+                        ? TargetActions.Select
+                        : TargetActions.None;
             }
             if (target instanceof Button) {
-                return target instanceof EndTurnButton;
+                return target instanceof EndTurnButton
+                        ? TargetActions.Button
+                        : TargetActions.None;
             }
             throw new ProjectAether.NotImplementedError();
         }

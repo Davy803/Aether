@@ -30,19 +30,16 @@ var ProjectAether;
             this.currentAction(this.mainPhaseAction);
         }
         Game.prototype.cb_selectTarget = function (target) {
-            if(!target.isCurrentlyValidTarget()) {
+            if(target.targetAction() === ProjectAether.TargetActions.None) {
                 return;
             }
             var player = this.currentPlayer();
             var currentAction = this.currentAction();
-            if(target instanceof ProjectAether.Space && (target).value() && currentAction.targetValidator((target).value())) {
+            if(target instanceof ProjectAether.Space && (target).value() && currentAction.getTargetAction((target).value())) {
                 target = (target).value();
             }
-            if(!currentAction.targetValidator(target)) {
+            if(!currentAction.getTargetAction(target)) {
                 throw Error("Not valid target");
-            }
-            if(!target.isCurrentlyValidTarget()) {
-                throw Error("Target validity not set");
             }
             var nextAction = currentAction.perform(target) || this.mainPhaseAction;
             this.currentAction(nextAction);
@@ -56,11 +53,6 @@ var ProjectAether;
             this.currentPlayer().beginTurn();
         };
         Game.prototype.setValidTargets = function (action) {
-            _.each(this.getValidTargets(action), function (x) {
-                return x.isCurrentlyValidTarget(true);
-            });
-        };
-        Game.prototype.getValidTargets = function (action) {
             var _this = this;
             var targets = [];
             _.forEach(action.targetTypes, function (targetType) {
@@ -96,13 +88,13 @@ var ProjectAether;
                     }
                 }
             });
-            return _.filter(targets, function (x) {
-                return action.targetValidator(x);
+            _.each(targets, function (x) {
+                return x.targetAction(action.getTargetAction(x));
             });
         };
         Game.prototype.hasValidNonButtonTargets = function (action) {
-            return _.filter(this.getValidTargets(action), function (x) {
-                return !(x instanceof Button);
+            return _.filter(this._getAllTargets(), function (x) {
+                return x.targetAction() !== ProjectAether.TargetActions.Button;
             }).length > 0;
         };
         Game.prototype._getAllCards = function () {
@@ -135,7 +127,7 @@ var ProjectAether;
         };
         Game.prototype._clearAllTargetValidity = function () {
             _.each(this._getAllTargets(), function (x) {
-                return x.isCurrentlyValidTarget(false);
+                return x.targetAction(ProjectAether.TargetActions.None);
             });
         };
         return Game;
@@ -143,7 +135,7 @@ var ProjectAether;
     ProjectAether.Game = Game;    
     var Button = (function () {
         function Button() {
-            this.isCurrentlyValidTarget = ko.observable(false);
+            this.targetAction = ko.observable(ProjectAether.TargetActions.None);
         }
         return Button;
     })();

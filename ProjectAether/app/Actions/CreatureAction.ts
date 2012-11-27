@@ -6,19 +6,25 @@ module ProjectAether.Actions {
         constructor (private board: Board, private creature: Creature) {
 
         }
-        targetValidator(target: Target) {
+        getTargetAction(target: Target): string {
             //Moving
             if (target instanceof Space) {
                 var space = <Space> target;
-                return this.board.findEmptySquaresWithinXSteps(this.creature.location(), this.creature.movement.current()).contains(space);
+                return this.board.findEmptySquaresWithinXSteps(this.creature.location(), this.creature.movement.current()).contains(space)
+                        ? TargetActions.Move
+                        : TargetActions.None;
             }
             //Attacking
             if (target instanceof Creature) {
-                return this._canAttack(<Creature>target);
+                return this._canAttack(<Creature>target)
+                        ? TargetActions.Attack
+                        : TargetActions.None;
             }
 
             if (target instanceof Button) {
-                return target instanceof CancelButton;
+                return target instanceof CancelButton
+                        ? TargetActions.Button
+                        : TargetActions.None;
             }
             throw new ProjectAether.NotImplementedError();
         }
@@ -32,8 +38,8 @@ module ProjectAether.Actions {
                 this.creature.move(newSpace, this.board.getDistance(this.creature, newSpace));
                 this.creature.isSelected(false);
                 return null;
-            } 
-            //Attack
+            }
+                //Attack
             else if (target instanceof Creature) {
                 var targetCreature = <Creature> target;
                 this.creature.attack(targetCreature);
@@ -47,8 +53,8 @@ module ProjectAether.Actions {
             throw Error("Cannot target multiple spaces");
         }
 
-        private _canAttack(targetCreature?: Creature){
-            if(targetCreature){
+        private _canAttack(targetCreature?: Creature) {
+            if (targetCreature) {
                 return this.creature.canAttack() && this.board.spacesAreAdjacent(this.creature.location(), targetCreature.location());
             }
             return this.creature.canAttack()

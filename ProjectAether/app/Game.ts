@@ -25,7 +25,7 @@ module ProjectAether {
         }
         //cb_ prefix fixed the "this" reference hijacking for callbacks.  Behavior implemented in Helpers.HasCallbacks
         cb_selectTarget(target: Target) {
-            if (!target.isCurrentlyValidTarget()) {
+            if (target.targetAction() === TargetActions.None) {
                 return;
             }
 
@@ -33,15 +33,11 @@ module ProjectAether {
             var currentAction = this.currentAction();
 
             //If space has valid creature, assume creature was selected instead.
-            if (target instanceof Space && (<Space>target).value() && currentAction.targetValidator((<Space>target).value())) {
+            if (target instanceof Space && (<Space>target).value() && currentAction.getTargetAction((<Space>target).value())) {
                 target = (<Space>target).value();
             } 
-            if (!currentAction.targetValidator(target)) {
+            if (!currentAction.getTargetAction(target)) {
                 throw Error("Not valid target");
-            }
-
-            if (!target.isCurrentlyValidTarget()) {
-                throw Error("Target validity not set");
             }
             var nextAction = currentAction.perform(target) || this.mainPhaseAction;
             this.currentAction(nextAction);
@@ -57,11 +53,11 @@ module ProjectAether {
         }
 
 
-        setValidTargets(action: Action) {
-            _.each(this.getValidTargets(action), (x) => x.isCurrentlyValidTarget(true));
-        }
+        //setValidTargets(action: Action) {
+        //    _.each(this.getValidTargets(action), (x) => x.isCurrentlyValidTarget(true));
+        //}
 
-        getValidTargets(action: Action): Target[] {
+        setValidTargets(action: Action) {
             var targets: Target[] = [];
             _.forEach(action.targetTypes, targetType => {
                 switch (targetType) {
@@ -84,11 +80,12 @@ module ProjectAether {
                         throw Error("Unknown Target Type: " + targetType)
                 }
             });
-            return _.filter(targets, (x: Target) => action.targetValidator(x));
+            _.each(targets, (x: Target) => x.targetAction(action.getTargetAction(x)));
+            //return _.filter(targets, (x: Target) => action.getTargetAction(x) !== TargetActions.None);
         }
 
         hasValidNonButtonTargets(action: Action) {
-            return _.filter(this.getValidTargets(action), (x: Target) => !(x instanceof Button)).length > 0;
+            return _.filter(this._getAllTargets(), (x: Target) => x.targetAction() !== TargetActions.Button).length > 0;
         }
         private _getAllCards(): Card[] {
             return _.union(
@@ -121,12 +118,12 @@ module ProjectAether {
             return _.union(this._getAllCards(), this._getAllCreatures(), this._getAllPlayers(), this._getAllSpaces(), this._getAllButtons());
         }
         private _clearAllTargetValidity() {
-            _.each(this._getAllTargets(), (x: Target) =>x.isCurrentlyValidTarget(false));
+            _.each(this._getAllTargets(), (x: Target) =>x.targetAction(TargetActions.None));
         }
     }
 
     export class Button implements Target {
-        isCurrentlyValidTarget = ko.observable(false);
+        targetAction = ko.observable(TargetActions.None);
     }
     export class EndTurnButton extends Button { }
 

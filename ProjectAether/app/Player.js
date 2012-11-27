@@ -11,7 +11,7 @@ var ProjectAether;
                 _super.call(this);
             this.name = name;
             this.deck = deck;
-            this.isCurrentlyValidTarget = ko.observable(false);
+            this.targetAction = ko.observable(ProjectAether.TargetActions.None);
             this.cardsInHand = ko.observableArray();
             this.graveyard = ko.observableArray();
             this.creaturesInPlay = ko.observableArray();

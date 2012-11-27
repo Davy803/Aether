@@ -3,7 +3,7 @@
 module ProjectAether {
     
     export interface Target {
-        isCurrentlyValidTarget: KnockoutObservableBool;
+        targetAction: KnockoutObservableString;
     }
     export interface Selectable {
         isSelected: KnockoutObservableBool;
@@ -14,5 +14,14 @@ module ProjectAether {
         Player: "Player",
         Space: "Space",
         Button: "EndTurnButton"
+    }
+    
+    export var TargetActions = {
+        None: "",
+        Move: "target move",
+        Attack: "target attack",
+        Button: "target button",
+        Place: "target place",
+        Select: "target select",
     }
 }

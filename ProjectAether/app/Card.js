@@ -10,7 +10,7 @@ var ProjectAether;
             this.name = name;
             this.cost = cost;
             this.owner = owner;
-            this.isCurrentlyValidTarget = ko.observable(false);
+            this.targetAction = ko.observable(ProjectAether.TargetActions.None);
             this.isSelected = ko.observable(false);
         }
         return CardBase;

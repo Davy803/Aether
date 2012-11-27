@@ -2,7 +2,7 @@
 
 module ProjectAether {
     export class CardBase {
-        isCurrentlyValidTarget = ko.observable(false);
+        targetAction = ko.observable(TargetActions.None);
         isSelected = ko.observable(false);
         constructor (public name: string, public cost: number, public owner: Player) {
 

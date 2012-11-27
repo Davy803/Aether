@@ -1,0 +1,15 @@
+
+@import "compass/css3/";
+
+@include keyframes(glow) {
+	from {
+		box-shadow: 0 0 0px green;
+	}
+	to {
+		box-shadow: 0 0 10px green;
+	}
+}
+
+@mixin glow() {
+	@include animation(glow 500ms linear alternate infinite);
+}

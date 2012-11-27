@@ -6,15 +6,17 @@ module ProjectAether.Actions {
         constructor (private player: Player, private card: CreatureCard) {
 
         }
-        targetValidator(target: Target) {
+        getTargetAction(target: Target) : string {
             if (target instanceof Space) {
                 var space = <Space> target;
-                return space.isEmpty() && space.owner() == this.card.owner;
+                return space.isEmpty() && space.owner() === this.card.owner
+                        ? TargetActions.Place
+                        : TargetActions.None;
             }
             if (target instanceof CancelButton) {
-                return true;
+                return TargetActions.Button;
             }
-            return false;
+            return TargetActions.None;
         }
         canPerform(target?: Target) {
             var card = this.card;

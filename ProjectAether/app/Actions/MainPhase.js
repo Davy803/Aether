@@ -10,18 +10,18 @@ var ProjectAether;
                     ProjectAether.TargetTypes.Button
                 ];
             }
-            MainPhase.prototype.targetValidator = function (target) {
+            MainPhase.prototype.getTargetAction = function (target) {
                 if(target instanceof ProjectAether.CardBase) {
-                    return this._canPlayCard(target);
+                    return this._canPlayCard(target) ? ProjectAether.TargetActions.Place : ProjectAether.TargetActions.None;
                 }
                 if(target instanceof ProjectAether.Space) {
                     target = (target).value();
                 }
                 if(target instanceof ProjectAether.Creature) {
-                    return this._canMoveCreature(target);
+                    return this._canMoveCreature(target) ? ProjectAether.TargetActions.Select : ProjectAether.TargetActions.None;
                 }
                 if(target instanceof ProjectAether.Button) {
-                    return target instanceof ProjectAether.EndTurnButton;
+                    return target instanceof ProjectAether.EndTurnButton ? ProjectAether.TargetActions.Button : ProjectAether.TargetActions.None;
                 }
                 throw new ProjectAether.NotImplementedError();
             };

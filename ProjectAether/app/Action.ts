@@ -3,7 +3,7 @@
 module ProjectAether {
     export interface Action {
         targetTypes: string[];
-        targetValidator: (Target) => bool;
+        getTargetAction: (Target) => string;
         performMulti(targets: Target[]) : void;
         perform(target: Target) : Action;
     }

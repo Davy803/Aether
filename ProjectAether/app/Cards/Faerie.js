@@ -12,7 +12,8 @@ var ProjectAether;
                         _super.call(this, "Faerie", 2, owner, {
             damage: 2,
             life: 5,
-            movement: 4
+            movement: 4,
+            flying: true
         });
             }
             return Faerie;

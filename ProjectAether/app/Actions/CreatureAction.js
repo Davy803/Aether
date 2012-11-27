@@ -11,16 +11,16 @@ var ProjectAether;
                     ProjectAether.TargetTypes.Creature
                 ];
             }
-            CreatureAction.prototype.targetValidator = function (target) {
+            CreatureAction.prototype.getTargetAction = function (target) {
                 if(target instanceof ProjectAether.Space) {
                     var space = target;
-                    return this.board.findEmptySquaresWithinXSteps(this.creature.location(), this.creature.movement.current()).contains(space);
+                    return this.board.findEmptySquaresWithinXSteps(this.creature.location(), this.creature.movement.current()).contains(space) ? ProjectAether.TargetActions.Move : ProjectAether.TargetActions.None;
                 }
                 if(target instanceof ProjectAether.Creature) {
-                    return this._canAttack(target);
+                    return this._canAttack(target) ? ProjectAether.TargetActions.Attack : ProjectAether.TargetActions.None;
                 }
                 if(target instanceof ProjectAether.Button) {
-                    return target instanceof ProjectAether.CancelButton;
+                    return target instanceof ProjectAether.CancelButton ? ProjectAether.TargetActions.Button : ProjectAether.TargetActions.None;
                 }
                 throw new ProjectAether.NotImplementedError();
             };

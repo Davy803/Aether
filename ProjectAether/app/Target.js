@@ -7,4 +7,12 @@ var ProjectAether;
         Space: "Space",
         Button: "EndTurnButton"
     };
+    ProjectAether.TargetActions = {
+        None: "",
+        Move: "target move",
+        Attack: "target attack",
+        Button: "target button",
+        Place: "target place",
+        Select: "target select"
+    };
 })(ProjectAether || (ProjectAether = {}));

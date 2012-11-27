@@ -4,7 +4,7 @@
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
 
 @import "compass/reset";
-@import "compass/css3/transform";
+@import "compass/css3", "_animations", "_mixins";
 
 $hoverColor: lightblue;
 
@@ -25,10 +25,31 @@ $halfSpaceWidth : $spaceWidth / 2;
 $marginTop: -($spaceHeight / 4 - $padding);
 $paddingLeft: ($spaceWidth + $padding) / 2;
 
+
+@include keyframes(flying) {
+	from {
+		@include transform(translateZ(10px));
+	}
+	to {
+		@include transform(translateZ(25px) translateY(-5px));
+	}
+}
+
+@mixin target-cursor()  {
+	cursor: pointer;
+	&.move {
+		cursor: move;
+	}
+	&.attack {
+		cursor: crosshair;
+	}
+}
+
 .actionable {
 	border: 1px solid black;
 	background-color: $spaceNormalColor;
-	&.valid-target  {
+	&.target  {
+		@include target-cursor();
 		background-color: $clickableColor;
 		&:hover  {
 			background-color: $hoverColor;
@@ -74,10 +95,9 @@ $paddingLeft: ($spaceWidth + $padding) / 2;
 	}
 }
 
-
-
 .board  {
 	display: table;
+	cursor: default;
 	@include transform(rotateX(30deg) translateZ(23px) translateX(79px));
 	@include perspective(600px);
 	.row  {
@@ -98,7 +118,6 @@ $paddingLeft: ($spaceWidth + $padding) / 2;
 				border-bottom: $quarterSpaceHeight solid $spaceNormalColor;
 				border-left: $halfSpaceWidth dotted transparent;
 				border-right: $halfSpaceWidth dotted transparent;   
-
 			}
 			.content  {
 				display: block;
@@ -125,25 +144,27 @@ $paddingLeft: ($spaceWidth + $padding) / 2;
 			}
 			.creature {
 				height: 100%;
+				@include border-radius(8px, 8px);
 				&.player1  {
 					background: $player1OccupiedColor;
 				}	
 				&.player2  {
 					background: $player2OccupiedColor;
-				}	
+				}
+				&.flying	{
+					@include animation(flying 600ms linear alternate infinite);
+				}
 			}
-			
-			&.valid-target  {
+			&.target  {
+				@include target-cursor();
 				@include hexBackgroundColor($clickableColor);
 				&:hover  {
 					@include hexBackgroundColor($hoverColor);
-					cursor: pointer;
 				}
 			}
 			&:hover {
 				@include hexBackgroundColor(darken($spaceNormalColor, 10%));
-			}		
-			
+			}
 		}
 		&:first-child .space  {
 			margin-top: 0;

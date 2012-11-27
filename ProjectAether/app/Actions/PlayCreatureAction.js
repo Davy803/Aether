@@ -10,15 +10,15 @@ var ProjectAether;
                     ProjectAether.TargetTypes.Button
                 ];
             }
-            PlayCreatureAction.prototype.targetValidator = function (target) {
+            PlayCreatureAction.prototype.getTargetAction = function (target) {
                 if(target instanceof ProjectAether.Space) {
                     var space = target;
-                    return space.isEmpty() && space.owner() == this.card.owner;
+                    return space.isEmpty() && space.owner() === this.card.owner ? ProjectAether.TargetActions.Place : ProjectAether.TargetActions.None;
                 }
                 if(target instanceof ProjectAether.CancelButton) {
-                    return true;
+                    return ProjectAether.TargetActions.Button;
                 }
-                return false;
+                return ProjectAether.TargetActions.None;
             };
             PlayCreatureAction.prototype.canPerform = function (target) {
                 var card = this.card;

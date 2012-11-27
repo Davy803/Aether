@@ -156,6 +156,9 @@
     </Content>
     <None Include="PublishProfiles\aether - FTP.pubxml" />
     <None Include="PublishProfiles\aether - Web Deploy.pubxml" />
+    <Content Include="sass\_animations.scss" />
+    <Content Include="sass\_mixins.scss" />
+    <None Include="sass\_keyframes.sass" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

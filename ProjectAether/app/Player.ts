@@ -2,7 +2,7 @@
 
 module ProjectAether {
     export class Player extends ProjectAether.HasCallbacks implements Target {
-        isCurrentlyValidTarget = ko.observable(false);
+        targetAction = ko.observable(TargetActions.None);
         cardsInHand: KnockoutObservableArrayCard = ko.observableArray();
         graveyard: KnockoutObservableArrayCard = ko.observableArray();
         creaturesInPlay: KnockoutObservableArrayCreature = ko.observableArray();

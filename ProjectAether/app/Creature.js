@@ -1,17 +1,23 @@
+var __extends = this.__extends || function (d, b) {
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 var ProjectAether;
 (function (ProjectAether) {
     var Creature = (function () {
         function Creature(name, stats) {
             var _this = this;
-            this.isCurrentlyValidTarget = ko.observable(false);
+            this.targetAction = ko.observable(ProjectAether.TargetActions.None);
             this.isSelected = ko.observable(false);
             this.controller = ko.observable();
             this.location = ko.observable();
             this.canAttack = ko.observable(true);
             this.name = ko.observable(name);
-            this.damage = new Stat("damage", stats.damage);
-            this.movement = new Stat("movement", stats.movement);
-            this.life = new Stat("life", stats.life);
+            this.damage = new StatNumber("damage", stats.damage);
+            this.movement = new StatNumber("movement", stats.movement);
+            this.life = new StatNumber("life", stats.life);
+            this.flying = new StatBool("flying", stats.flying);
             this.canMove = ko.computed(function () {
                 return _this.movement.current() > 0;
             });
@@ -60,16 +66,39 @@ var ProjectAether;
             this.initial = initial;
             this.current = ko.observable(initial);
         }
-        Stat.prototype.add = function (amount) {
-            this.current(this.current() + amount);
-        };
-        Stat.prototype.subtract = function (amount) {
-            this.current(this.current() - amount);
-        };
         Stat.prototype.reset = function () {
             this.current(this.initial);
         };
         return Stat;
     })();
     ProjectAether.Stat = Stat;    
+    var StatNumber = (function (_super) {
+        __extends(StatNumber, _super);
+        function StatNumber(name, initial) {
+                _super.call(this, name, initial);
+            this.name = name;
+            this.initial = initial;
+        }
+        StatNumber.prototype.add = function (amount) {
+            this.current(this.current() + amount);
+        };
+        StatNumber.prototype.subtract = function (amount) {
+            this.current(this.current() - amount);
+        };
+        return StatNumber;
+    })(Stat);
+    ProjectAether.StatNumber = StatNumber;    
+    var StatBool = (function (_super) {
+        __extends(StatBool, _super);
+        function StatBool(name, initial) {
+                _super.call(this, name, initial);
+            this.name = name;
+            this.initial = initial;
+        }
+        StatBool.prototype.invert = function () {
+            this.current(!this.current());
+        };
+        return StatBool;
+    })(Stat);
+    ProjectAether.StatBool = StatBool;    
 })(ProjectAether || (ProjectAether = {}));

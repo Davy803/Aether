@@ -5,19 +5,19 @@ var ProjectAether;
             this.y = y;
             this.x = x;
             var _this = this;
-            this._isCurrentlyValidTarget = ko.observable(false);
+            this._targetAction = ko.observable(ProjectAether.TargetActions.None);
             this._value = ko.observable(null);
             this.owner = ko.observable();
             this.value = ko.computed(function () {
                 return _this._value();
             });
             this.owner(owner);
-            this.isCurrentlyValidTarget = ko.computed({
+            this.targetAction = ko.computed({
                 read: function () {
-                    return _this._isCurrentlyValidTarget() || _this._value() && _this._value().isCurrentlyValidTarget();
+                    return _this._targetAction() || _this._value() && _this._value().targetAction();
                 },
                 write: function (newValue) {
-                    return _this._isCurrentlyValidTarget(newValue);
+                    return _this._targetAction(newValue);
                 }
             });
             this.isSelected = ko.computed(function () {

@@ -2,44 +2,47 @@
 
 module ProjectAether {
     export class Creature implements Target, Selectable {
-        isCurrentlyValidTarget = ko.observable(false);
+        targetAction = ko.observable(TargetActions.None);
         isSelected = ko.observable(false);
         name: KnockoutObservableString;
-        damage: Stat;
-        life: Stat;
-        movement: Stat;
+        damage: StatNumber;
+        life: StatNumber;
+        movement: StatNumber;
+        flying: StatBool;
         controller: KnockoutObservablePlayer = ko.observable();
         location: KnockoutObservableSpace = ko.observable();
         canAttack = ko.observable(true);
         canMove: KnockoutComputedBool;
+        
         constructor (name: string, stats: Stats) {
             this.name = ko.observable(name);
-            this.damage = new Stat("damage", stats.damage);
-            this.movement = new Stat("movement", stats.movement);
-            this.life = new Stat("life", stats.life);
+            this.damage = new StatNumber("damage", stats.damage);
+            this.movement = new StatNumber("movement", stats.movement);
+            this.life = new StatNumber("life", stats.life);
+            this.flying = new StatBool("flying", stats.flying);
             this.canMove = ko.computed((): bool=> this.movement.current() > 0);
         }
         enterPlay(controller: Player, location: Space) {
             this.controller(controller);
             this.location(location);
         }
-        beginTurn(){
+        beginTurn() {
             this.canAttack(true);
             this.movement.reset();
             this.location().owner(this.controller());
         }
-        attack(targetCreature: Creature){
+        attack(targetCreature: Creature) {
             assert(this.canAttack());
             targetCreature.takeDamage(this.damage.current());
             this.canAttack(false);
         }
-        takeDamage(amount: number){
+        takeDamage(amount: number) {
             this.life.subtract(amount);
             if (!this.isAlive()) {
                 this._die();
             }
         }
-        isAlive(){
+        isAlive() {
             return this.life.current() > 0;
         }
         move(newSpace: Space, distance: number) {
@@ -60,23 +63,41 @@ module ProjectAether {
         damage: number;
         movement: number;
         life: number;
+        flying?: bool;
     }
-
     export class Stat {
-        current: KnockoutObservableNumber;
-        constructor (public name: string, public initial: number) {
+        current: KnockoutObservableAny;
+        constructor (public name: string, public initial: any) {
             this.current = ko.observable(initial);
         }
-        add(amount: number){
-            this.current(this.current() + amount);
-        }
-        subtract(amount: number){
-            this.current(this.current() - amount);
-        }
-        reset(){
+        reset() {
             this.current(this.initial);
         }
     }
+
+    export class StatNumber extends Stat {
+        current: KnockoutObservableNumber;
+        constructor (public name: string, public initial: number) {
+            super(name, initial);
+        }
+        add(amount: number) {
+            this.current(this.current() + amount);
+        }
+        subtract(amount: number) {
+            this.current(this.current() - amount);
+        }
+    }
+
+    export class StatBool extends Stat {
+        current: KnockoutObservableBool;
+        constructor (public name: string, public initial: bool) {
+            super(name, initial);
+        }
+        invert() {
+            this.current(!this.current());
+        }
+    }
+
     export interface KnockoutObservableCreature extends KnockoutObservableAny {
         (): Creature;
         (value: Creature): void;

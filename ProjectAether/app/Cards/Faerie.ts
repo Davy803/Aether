@@ -7,7 +7,9 @@ module ProjectAether.Cards {
                 damage: 2,
                 life: 5,
                 movement: 4,
+                flying: true,
             });
         }
+        
     }
 }
