@@ -49,20 +49,28 @@ var ProjectAether;
             }
             return null;
         };
-        Board.prototype.findEmptySquaresWithinXSteps = function (node, x, current_set) {
+        Board.prototype.findEmptySquaresWithinXSteps = function (space, x) {
+            var results = this._recursiveFindEmptySquaresWithinXSteps(space, x);
+            results.remove(space);
+            return results;
+        };
+        Board.prototype._recursiveFindEmptySquaresWithinXSteps = function (space, x, current_set) {
             if (typeof current_set === "undefined") { current_set = null; }
             var _this = this;
             if(current_set === null) {
                 current_set = new HashSet();
             } else {
-                current_set.add(node);
+                current_set.add(space);
             }
             if(x > 0) {
-                _.each(this._getEmptyNeighbors(node), function (neighbor) {
-                    _this.findEmptySquaresWithinXSteps(neighbor, x - 1, current_set);
+                _.each(this._getEmptyNeighbors(space), function (neighbor) {
+                    _this._recursiveFindEmptySquaresWithinXSteps(neighbor, x - 1, current_set);
                 });
             }
             return current_set;
+        };
+        Board.prototype.spacesAreAdjacent = function (space1, space2) {
+            return _.include(this._getNeighbors(space1), space2);
         };
         Board.prototype._getNeighbors = function (space, condition) {
             if (typeof condition === "undefined") { condition = function (space) {
@@ -90,4 +98,3 @@ var ProjectAether;
     })();
     ProjectAether.Board = Board;    
 })(ProjectAether || (ProjectAether = {}));
-//@ sourceMappingURL=Board.js.map

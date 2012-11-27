@@ -10,15 +10,49 @@ module ProjectAether {
         movement: Stat;
         controller: KnockoutObservablePlayer = ko.observable();
         location: KnockoutObservableSpace = ko.observable();
+        canAttack = ko.observable(true);
+        canMove: KnockoutComputedBool;
         constructor (name: string, stats: Stats) {
             this.name = ko.observable(name);
             this.damage = new Stat("damage", stats.damage);
             this.movement = new Stat("movement", stats.movement);
             this.life = new Stat("life", stats.life);
+            this.canMove = ko.computed((): bool=> this.movement.current() > 0);
         }
         enterPlay(controller: Player, location: Space) {
             this.controller(controller);
             this.location(location);
+        }
+        beginTurn(){
+            this.canAttack(true);
+            this.movement.reset();
+            this.location().owner(this.controller());
+        }
+        attack(targetCreature: Creature){
+            assert(this.canAttack());
+            targetCreature.takeDamage(this.damage.current());
+            this.canAttack(false);
+        }
+        takeDamage(amount: number){
+            this.life.subtract(amount);
+            if (!this.isAlive()) {
+                this._die();
+            }
+        }
+        isAlive(){
+            return this.life.current() > 0;
+        }
+        move(newSpace: Space, distance: number) {
+            this.movement.subtract(distance);
+            this.location().setValue(null);
+            this.location(newSpace);
+            newSpace.setValue(this);
+        }
+        private _die() {
+            this.location().setValue(null);
+            this.location(null);
+            this.controller().creaturesInPlay.remove(this);
+            this.controller(null);
         }
     }
 
@@ -32,6 +66,15 @@ module ProjectAether {
         current: KnockoutObservableNumber;
         constructor (public name: string, public initial: number) {
             this.current = ko.observable(initial);
+        }
+        add(amount: number){
+            this.current(this.current() + amount);
+        }
+        subtract(amount: number){
+            this.current(this.current() - amount);
+        }
+        reset(){
+            this.current(this.initial);
         }
     }
     export interface KnockoutObservableCreature extends KnockoutObservableAny {

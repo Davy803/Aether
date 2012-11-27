@@ -13,7 +13,6 @@ var ProjectAether;
             this.player1 = player1;
             this.player2 = player2;
             this.currentPlayer = ko.observable(ProjectAether.Player);
-            this.currentState = ko.observable(ProjectAether.States.InProgress);
             this.currentTurn = ko.observable(1);
             this.currentAction = ko.observable();
             this.endTurnButton = new EndTurnButton();
@@ -27,6 +26,7 @@ var ProjectAether;
                 _this.setValidTargets(newAction);
             });
             this.mainPhaseAction = new ProjectAether.Actions.MainPhase(this);
+            player1.beginTurn();
             this.currentAction(this.mainPhaseAction);
         }
         Game.prototype.cb_selectTarget = function (target) {
@@ -35,6 +35,9 @@ var ProjectAether;
             }
             var player = this.currentPlayer();
             var currentAction = this.currentAction();
+            if(target instanceof ProjectAether.Space && (target).value() && currentAction.targetValidator((target).value())) {
+                target = (target).value();
+            }
             if(!currentAction.targetValidator(target)) {
                 throw Error("Not valid target");
             }
@@ -136,7 +139,7 @@ var ProjectAether;
             });
         };
         return Game;
-    })(Helpers.HasCallbacks);
+    })(ProjectAether.HasCallbacks);
     ProjectAether.Game = Game;    
     var Button = (function () {
         function Button() {
@@ -164,4 +167,3 @@ var ProjectAether;
     })(Button);
     ProjectAether.CancelButton = CancelButton;    
 })(ProjectAether || (ProjectAether = {}));
-//@ sourceMappingURL=Game.js.map

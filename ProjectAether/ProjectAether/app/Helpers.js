@@ -1,5 +1,5 @@
-var Helpers;
-(function (Helpers) {
+var ProjectAether;
+(function (ProjectAether) {
     var HasCallbacks = (function () {
         function HasCallbacks() {
             var _this = this, _constructor = (this).constructor;
@@ -23,7 +23,7 @@ var Helpers;
         }
         return HasCallbacks;
     })();
-    Helpers.HasCallbacks = HasCallbacks;    
+    ProjectAether.HasCallbacks = HasCallbacks;    
     var NotImplementedError = (function () {
         function NotImplementedError(message) {
             if (typeof message === "undefined") { message = "Not Implemented"; }
@@ -32,6 +32,5 @@ var Helpers;
         }
         return NotImplementedError;
     })();
-    Helpers.NotImplementedError = NotImplementedError;    
-})(Helpers || (Helpers = {}));
-//@ sourceMappingURL=Helpers.js.map
+    ProjectAether.NotImplementedError = NotImplementedError;    
+})(ProjectAether || (ProjectAether = {}));

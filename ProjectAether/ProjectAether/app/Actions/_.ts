@@ -1,4 +1,4 @@
-/// <reference path="PlayCreatureAction.ts" />
+/// <reference path="CreatureAction.ts" />
 /// <reference path="MainPhase.ts" />
-/// <reference path="MoveCreatureAction.ts" />
+/// <reference path="PlayCreatureAction.ts" />
 /// <reference path="../main.ts" />

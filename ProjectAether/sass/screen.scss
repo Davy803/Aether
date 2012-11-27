@@ -59,7 +59,9 @@ $paddingLeft: ($spaceWidth + $padding) / 2;
 	@extend .actionable;
 }
 
-
+.disabled {
+	opacity: .3;
+}
 @mixin hexBackgroundColor($color)  {
 	.top  {
 		border-bottom-color: $color;
@@ -72,9 +74,12 @@ $paddingLeft: ($spaceWidth + $padding) / 2;
 	}
 }
 
+
+
 .board  {
 	display: table;
-	@include transform(perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px));
+	@include transform(rotateX(30deg) translateZ(23px) translateX(79px));
+	@include perspective(600px);
 	.row  {
 		clear: both;
 		.space  {

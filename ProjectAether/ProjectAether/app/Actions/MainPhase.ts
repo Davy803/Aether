@@ -19,7 +19,7 @@ module ProjectAether.Actions {
             if (target instanceof Button) {
                 return target instanceof EndTurnButton;
             }
-            throw new Helpers.NotImplementedError();
+            throw new ProjectAether.NotImplementedError();
         }
         perform(target: Target) {
             if (target instanceof CardBase) {
@@ -35,7 +35,7 @@ module ProjectAether.Actions {
                 this.game.endTurn();
                 return null;
             }
-            throw new Helpers.NotImplementedError();
+            throw new ProjectAether.NotImplementedError();
         }
         performMulti(spaces: Space[]) {
             throw Error("Cannot target multiple spaces");
@@ -44,7 +44,9 @@ module ProjectAether.Actions {
         private _canPlayCard(card: Card) {
             var player = this.game.currentPlayer();
             var action = this._getCardAction(card);
-            return player.mana() >= card.cost && this.game.hasValidNonButtonTargets(action);
+            return _.contains(player.cardsInHand(), card) 
+                && player.mana() >= card.cost 
+                && this.game.hasValidNonButtonTargets(action);
         }
 
         private _playCard(card: Card) {
@@ -56,13 +58,13 @@ module ProjectAether.Actions {
         
         private _canMoveCreature(creature: Creature) {
             var player = this.game.currentPlayer();
-            var action = new Actions.MoveCreatureAction(this.game.board, creature);
+            var action = new Actions.CreatureAction(this.game.board, creature);
             return creature.controller() === player && this.game.hasValidNonButtonTargets(action);
         }
 
         private _moveCreature(creature: Creature) {
             var player = this.game.currentPlayer();
-            var action = new Actions.MoveCreatureAction(this.game.board, creature);
+            var action = new Actions.CreatureAction(this.game.board, creature);
             creature.isSelected(true);
             return action;
         }
@@ -73,7 +75,7 @@ module ProjectAether.Actions {
             if (card instanceof CreatureCard) {
                 return new Actions.PlayCreatureAction(player, <CreatureCard> card);
             }
-            throw new Helpers.NotImplementedError();
+            throw new ProjectAether.NotImplementedError();
         }
 
     }

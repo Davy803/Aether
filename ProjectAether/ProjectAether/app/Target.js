@@ -8,4 +8,3 @@ var ProjectAether;
         Button: "EndTurnButton"
     };
 })(ProjectAether || (ProjectAether = {}));
-//@ sourceMappingURL=Target.js.map

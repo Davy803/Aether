@@ -1,10 +1,11 @@
 /// <reference path="main.ts" />
 
 module ProjectAether {
-    export class Player extends Helpers.HasCallbacks implements Target {
+    export class Player extends ProjectAether.HasCallbacks implements Target {
         isCurrentlyValidTarget = ko.observable(false);
         cardsInHand: KnockoutObservableArrayCard = ko.observableArray();
         graveyard: KnockoutObservableArrayCard = ko.observableArray();
+        creaturesInPlay: KnockoutObservableArrayCreature = ko.observableArray();
         mana = ko.observable(0);
         constructor (public name: string, public deck?: Deck) {
             super();
@@ -12,16 +13,26 @@ module ProjectAether {
 
         init() {
             _.times(7, index => this._drawCard());
-            this.mana(5);
         }
-
-        payCost(cost: number){
+        canPayCost(cost: number) {
+            return this.mana() >= cost;
+        } 
+        payCost(cost: number) {
             this.mana(this.mana() - cost);
         }
-
+        playCreature(creature: Creature, space: Space) {
+            this.creaturesInPlay.push(creature);
+            space.setValue(creature);
+            creature.enterPlay(this, space);
+        }
         beginTurn() {
             this._drawCard();
             this.mana(this.mana() + 5);
+            _.each(this.creaturesInPlay(), (creature: Creature) => creature.beginTurn());
+        }
+
+        isHoldingCard(card: Card) {
+            return _.contains(this.cardsInHand(), card);
         }
         private _drawCard() {
             this.cardsInHand.push(this.deck.drawCard());

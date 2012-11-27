@@ -60,19 +60,27 @@ module ProjectAether {
             }
             return null;
         }
-        findEmptySquaresWithinXSteps(node: Space, x: number, current_set: IHashSet = null) : IHashSet {
+        findEmptySquaresWithinXSteps(space: Space, x: number): IHashSet {
+            var results = this._recursiveFindEmptySquaresWithinXSteps(space, x);
+            results.remove(space);
+            return results;
+        }
+        private _recursiveFindEmptySquaresWithinXSteps(space: Space, x: number, current_set: IHashSet = null) : IHashSet {
             if (current_set === null) {
                 current_set = new HashSet();
             }
             else {
-                current_set.add(node);
+                current_set.add(space);
             }
             if (x > 0) {
-                _.each(this._getEmptyNeighbors(node), (neighbor) =>{
-                    this.findEmptySquaresWithinXSteps(neighbor, x - 1, current_set);
+                _.each(this._getEmptyNeighbors(space), (neighbor) =>{
+                    this._recursiveFindEmptySquaresWithinXSteps(neighbor, x - 1, current_set);
                 });
             }
             return current_set;
+        }
+        spacesAreAdjacent(space1: Space, space2: Space){
+            return _.include(this._getNeighbors(space1), space2);
         }
         private _getNeighbors(space: Space, condition = (space: Space) => true) {
             var spaces = [

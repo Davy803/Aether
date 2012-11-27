@@ -1,9 +1,8 @@
 /// <reference path="main.ts" />
 
 module ProjectAether {
-    export class Game extends Helpers.HasCallbacks {
+    export class Game extends ProjectAether.HasCallbacks {
         currentPlayer: KnockoutObservablePlayer = ko.observable(Player);
-        currentState = ko.observable(ProjectAether.States.InProgress);
         currentTurn = ko.observable(1);
         currentAction: KnockoutObservableAction = ko.observable();
         board: Board;
@@ -21,9 +20,10 @@ module ProjectAether {
                 this.setValidTargets(newAction);
             });
             this.mainPhaseAction = new Actions.MainPhase(this);
+            player1.beginTurn();
             this.currentAction(this.mainPhaseAction);
         }
-
+        //cb_ prefix fixed the "this" reference hijacking for callbacks.  Behavior implemented in Helpers.HasCallbacks
         cb_selectTarget(target: Target) {
             if (!target.isCurrentlyValidTarget()) {
                 return;
@@ -32,6 +32,10 @@ module ProjectAether {
             var player = this.currentPlayer();
             var currentAction = this.currentAction();
 
+            //If space has valid creature, assume creature was selected instead.
+            if (target instanceof Space && (<Space>target).value() && currentAction.targetValidator((<Space>target).value())) {
+                target = (<Space>target).value();
+            } 
             if (!currentAction.targetValidator(target)) {
                 throw Error("Not valid target");
             }

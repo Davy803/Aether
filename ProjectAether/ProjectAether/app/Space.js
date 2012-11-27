@@ -40,4 +40,3 @@ var ProjectAether;
     })();
     ProjectAether.Space = Space;    
 })(ProjectAether || (ProjectAether = {}));
-//@ sourceMappingURL=Space.js.map

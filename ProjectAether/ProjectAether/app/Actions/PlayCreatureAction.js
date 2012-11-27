@@ -20,6 +20,11 @@ var ProjectAether;
                 }
                 return false;
             };
+            PlayCreatureAction.prototype.canPerform = function (target) {
+                var card = this.card;
+                var player = this.player;
+                return player.isHoldingCard(card) && player.canPayCost(card.cost);
+            };
             PlayCreatureAction.prototype.perform = function (target) {
                 if(target instanceof ProjectAether.CancelButton) {
                     return null;
@@ -32,8 +37,7 @@ var ProjectAether;
                 this._assertCanPlayCard(space);
                 var card = this.card;
                 var player = this.player;
-                space.setValue(card.creature);
-                card.creature.enterPlay(player, space);
+                player.playCreature(card.creature, space);
                 card.isSelected(false);
                 player.cardsInHand.remove(card);
                 player.payCost(card.cost);
@@ -45,7 +49,7 @@ var ProjectAether;
             PlayCreatureAction.prototype._assertCanPlayCard = function (space) {
                 var player = this.player;
                 var card = this.card;
-                if(!_.contains(player.cardsInHand(), card) && player.mana() >= card.cost) {
+                if(!player.isHoldingCard(card) && player.mana() >= card.cost) {
                     throw Error("Cannot Play Card");
                 }
                 if(!space.isEmpty()) {
@@ -58,4 +62,3 @@ var ProjectAether;
     })(ProjectAether.Actions || (ProjectAether.Actions = {}));
     var Actions = ProjectAether.Actions;
 })(ProjectAether || (ProjectAether = {}));
-//@ sourceMappingURL=PlayCreatureAction.js.map

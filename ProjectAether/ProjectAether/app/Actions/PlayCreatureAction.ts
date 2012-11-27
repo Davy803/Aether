@@ -16,7 +16,12 @@ module ProjectAether.Actions {
             }
             return false;
         }
-        perform(target: Target) : Action {
+        canPerform(target?: Target) {
+            var card = this.card;
+            var player = this.player;
+            return player.isHoldingCard(card) && player.canPayCost(card.cost);
+        }
+        perform(target: Target): Action {
             if (target instanceof CancelButton) {
                 return null;
             }
@@ -25,14 +30,13 @@ module ProjectAether.Actions {
             } else {
                 throw Error("Invalid target");
             }
-            
+
 
             this._assertCanPlayCard(space);
-            
+
             var card = this.card;
             var player = this.player;
-            space.setValue(card.creature);
-            card.creature.enterPlay(player, space);
+            player.playCreature(card.creature, space)
             card.isSelected(false);
             player.cardsInHand.remove(card);
             player.payCost(card.cost);
@@ -41,12 +45,12 @@ module ProjectAether.Actions {
         performMulti(spaces: Space[]) {
             throw Error("Cannot target multiple spaces");
         }
-        
+
         private _assertCanPlayCard(space: Space): void {
             var player = this.player;
             var card = this.card;
-            if(! _.contains(player.cardsInHand(), card)
-                && player.mana() >= card.cost){
+            if (!player.isHoldingCard(card)
+                && player.mana() >= card.cost) {
                 throw Error("Cannot Play Card");
             }
             if (!space.isEmpty()) {

@@ -107,20 +107,30 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: inline;
 }
 
-/* line 75, ../sass/screen.scss */
+/* line 62, ../sass/screen.scss */
+.disabled {
+  opacity: .3;
+}
+
+/* line 79, ../sass/screen.scss */
 .board {
   display: table;
-  -webkit-transform: perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px);
-  -moz-transform: perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px);
-  -ms-transform: perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px);
-  -o-transform: perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px);
-  transform: perspective(600) rotateX(30deg) translateZ(23px) translateY(-78px) translateX(79px);
+  -webkit-transform: rotateX(30deg) translateZ(23px) translateX(79px);
+  -moz-transform: rotateX(30deg) translateZ(23px) translateX(79px);
+  -ms-transform: rotateX(30deg) translateZ(23px) translateX(79px);
+  -o-transform: rotateX(30deg) translateZ(23px) translateX(79px);
+  transform: rotateX(30deg) translateZ(23px) translateX(79px);
+  -webkit-perspective: 600px;
+  -moz-perspective: 600px;
+  -ms-perspective: 600px;
+  -o-perspective: 600px;
+  perspective: 600px;
 }
-/* line 78, ../sass/screen.scss */
+/* line 83, ../sass/screen.scss */
 .board .row {
   clear: both;
 }
-/* line 80, ../sass/screen.scss */
+/* line 85, ../sass/screen.scss */
 .board .row .space {
   display: inline-block;
   float: left;
@@ -129,7 +139,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   height: 120px;
   margin-top: -26px;
 }
-/* line 88, ../sass/screen.scss */
+/* line 93, ../sass/screen.scss */
 .board .row .space .top {
   display: block;
   width: 0;
@@ -139,7 +149,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   border-left: 52px dotted transparent;
   border-right: 52px dotted transparent;
 }
-/* line 98, ../sass/screen.scss */
+/* line 103, ../sass/screen.scss */
 .board .row .space .content {
   display: block;
   width: 104px;
@@ -148,7 +158,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   background: wheat;
   font-size: 24px;
 }
-/* line 106, ../sass/screen.scss */
+/* line 111, ../sass/screen.scss */
 .board .row .space .bottom {
   display: block;
   width: 0;
@@ -158,87 +168,87 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   border-left: 52px dotted transparent;
   border-right: 52px dotted transparent;
 }
-/* line 64, ../sass/screen.scss */
+/* line 66, ../sass/screen.scss */
 .board .row .space.player1 .top {
   border-bottom-color: #daf5b3;
 }
-/* line 67, ../sass/screen.scss */
+/* line 69, ../sass/screen.scss */
 .board .row .space.player1 .content {
   background: #daf5b3;
 }
-/* line 70, ../sass/screen.scss */
+/* line 72, ../sass/screen.scss */
 .board .row .space.player1 .bottom {
   border-top-color: #daf5b3;
 }
-/* line 64, ../sass/screen.scss */
+/* line 66, ../sass/screen.scss */
 .board .row .space.player2 .top {
   border-bottom-color: #f5b3b9;
 }
-/* line 67, ../sass/screen.scss */
+/* line 69, ../sass/screen.scss */
 .board .row .space.player2 .content {
   background: #f5b3b9;
 }
-/* line 70, ../sass/screen.scss */
+/* line 72, ../sass/screen.scss */
 .board .row .space.player2 .bottom {
   border-top-color: #f5b3b9;
 }
-/* line 121, ../sass/screen.scss */
+/* line 126, ../sass/screen.scss */
 .board .row .space .creature {
   height: 100%;
 }
-/* line 123, ../sass/screen.scss */
+/* line 128, ../sass/screen.scss */
 .board .row .space .creature.player1 {
   background: #afe959;
 }
-/* line 126, ../sass/screen.scss */
+/* line 131, ../sass/screen.scss */
 .board .row .space .creature.player2 {
   background: #e95967;
 }
-/* line 64, ../sass/screen.scss */
+/* line 66, ../sass/screen.scss */
 .board .row .space.valid-target .top {
   border-bottom-color: limegreen;
 }
-/* line 67, ../sass/screen.scss */
+/* line 69, ../sass/screen.scss */
 .board .row .space.valid-target .content {
   background: limegreen;
 }
-/* line 70, ../sass/screen.scss */
+/* line 72, ../sass/screen.scss */
 .board .row .space.valid-target .bottom {
   border-top-color: limegreen;
 }
-/* line 133, ../sass/screen.scss */
+/* line 138, ../sass/screen.scss */
 .board .row .space.valid-target:hover {
   cursor: pointer;
 }
-/* line 64, ../sass/screen.scss */
+/* line 66, ../sass/screen.scss */
 .board .row .space.valid-target:hover .top {
   border-bottom-color: lightblue;
 }
-/* line 67, ../sass/screen.scss */
+/* line 69, ../sass/screen.scss */
 .board .row .space.valid-target:hover .content {
   background: lightblue;
 }
-/* line 70, ../sass/screen.scss */
+/* line 72, ../sass/screen.scss */
 .board .row .space.valid-target:hover .bottom {
   border-top-color: lightblue;
 }
-/* line 64, ../sass/screen.scss */
+/* line 66, ../sass/screen.scss */
 .board .row .space:hover .top {
   border-bottom-color: #efca86;
 }
-/* line 67, ../sass/screen.scss */
+/* line 69, ../sass/screen.scss */
 .board .row .space:hover .content {
   background: #efca86;
 }
-/* line 70, ../sass/screen.scss */
+/* line 72, ../sass/screen.scss */
 .board .row .space:hover .bottom {
   border-top-color: #efca86;
 }
-/* line 143, ../sass/screen.scss */
+/* line 148, ../sass/screen.scss */
 .board .row:first-child .space {
   margin-top: 0;
 }
-/* line 146, ../sass/screen.scss */
+/* line 151, ../sass/screen.scss */
 .board .row:nth-child(odd) .space:nth-child(1) {
   padding-left: 54px;
 }

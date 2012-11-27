@@ -1,11 +1,11 @@
 var ProjectAether;
 (function (ProjectAether) {
-    ProjectAether.States = {
-        InProgress: "In Progress",
-        WinnerX: "X Wins",
-        WinnerO: "O Wins",
-        Tie: "Tie"
-    };
+    function assert(value) {
+        if(!value) {
+            throw Error("Assertion Failed");
+        }
+    }
+    ProjectAether.assert = assert;
 })(ProjectAether || (ProjectAether = {}));
 var viewModel;
 window.onload = function () {
@@ -18,4 +18,3 @@ window.onload = function () {
     var hash = new HashSet();
     viewModel = game;
 };
-//@ sourceMappingURL=main.js.map

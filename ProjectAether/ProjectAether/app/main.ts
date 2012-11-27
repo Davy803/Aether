@@ -17,12 +17,11 @@
 /// <reference path="Decks/decks.ts" />
 
 module ProjectAether {
-    export var States = {
-        InProgress: "In Progress",
-        WinnerX: "X Wins",
-        WinnerO: "O Wins",
-        Tie: "Tie"
-    };
+    export function assert(value: bool){
+        if(!value){
+            throw Error("Assertion Failed");
+        }
+    }
 }
 var viewModel;
 window.onload = () => {

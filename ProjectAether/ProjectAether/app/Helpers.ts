@@ -1,5 +1,5 @@
 // Module
-module Helpers {
+module ProjectAether {
     // Class
     export class HasCallbacks {
         constructor () {

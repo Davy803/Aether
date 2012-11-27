@@ -41,48 +41,26 @@
     </Content>
     <TypeScriptCompile Include="ProjectAether\app\Actions\PlayCreatureAction.ts" />
     <TypeScriptCompile Include="ProjectAether\app\Actions\MainPhase.ts" />
-    <TypeScriptCompile Include="ProjectAether\app\Actions\EndTurn.ts" />
-    <Content Include="ProjectAether\app\Actions\EndTurn.js">
-      <DependentUpon>EndTurn.ts</DependentUpon>
+    <TypeScriptCompile Include="ProjectAether\app\Actions\CreatureAction.ts" />
+    <Content Include="ProjectAether\app\Actions\CreatureAction.js">
+      <DependentUpon>CreatureAction.ts</DependentUpon>
     </Content>
     <Content Include="ProjectAether\app\Actions\MainPhase.js">
       <DependentUpon>MainPhase.ts</DependentUpon>
-    </Content>
-    <TypeScriptCompile Include="ProjectAether\app\Actions\MoveCreatureAction.ts" />
-    <Content Include="ProjectAether\app\Actions\MoveCreatureAction.js">
-      <DependentUpon>MoveCreatureAction.ts</DependentUpon>
     </Content>
     <Content Include="ProjectAether\app\Actions\PlayCreatureAction.js">
       <DependentUpon>PlayCreatureAction.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="ProjectAether\app\Actions\_.ts" />
-    <Content Include="ProjectAether\app\Actions\_.js">
-      <DependentUpon>_.ts</DependentUpon>
-    </Content>
-    <Content Include="ProjectAether\app\Board.min.js">
-      <DependentUpon>Board.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="ProjectAether\app\Card.ts" />
     <Content Include="ProjectAether\app\Card.js">
-      <DependentUpon>Card.ts</DependentUpon>
-    </Content>
-    <Content Include="ProjectAether\app\Card.min.js">
       <DependentUpon>Card.ts</DependentUpon>
     </Content>
     <Content Include="ProjectAether\app\Creature.js">
       <DependentUpon>Creature.ts</DependentUpon>
     </Content>
-    <Content Include="ProjectAether\app\Creature.min.js">
-      <DependentUpon>Creature.ts</DependentUpon>
-    </Content>
-    <Content Include="ProjectAether\app\Cards\Centaur.min.js">
-      <DependentUpon>Centaur.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="ProjectAether\app\Game.ts" />
     <Content Include="ProjectAether\app\Game.js">
-      <DependentUpon>Game.ts</DependentUpon>
-    </Content>
-    <Content Include="ProjectAether\app\Game.min.js">
       <DependentUpon>Game.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="ProjectAether\app\main.ts" />
@@ -92,23 +70,14 @@
     <Content Include="ProjectAether\app\Player.js">
       <DependentUpon>Player.ts</DependentUpon>
     </Content>
-    <Content Include="ProjectAether\app\Player.min.js">
-      <DependentUpon>Player.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="ProjectAether\app\Target.ts" />
     <Content Include="ProjectAether\app\Target.js">
       <DependentUpon>Target.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="ProjectAether\libs\hash\jshashset.d.ts" />
-    <Content Include="ProjectAether\libs\hash\jshashset.d.js">
-      <DependentUpon>jshashset.d.ts</DependentUpon>
-    </Content>
     <Content Include="ProjectAether\libs\hash\jshashset.js" />
     <Content Include="ProjectAether\libs\hash\jshashset_src.js" />
     <TypeScriptCompile Include="ProjectAether\libs\hash\jshashtable.d.ts" />
-    <Content Include="ProjectAether\libs\hash\jshashtable.d.js">
-      <DependentUpon>jshashtable.d.ts</DependentUpon>
-    </Content>
     <Content Include="ProjectAether\libs\hash\jshashtable.js" />
     <Content Include="ProjectAether\libs\hash\jshashtable_src.js" />
     <Content Include="ProjectAether\libs\JSClass\core.js" />
@@ -149,18 +118,12 @@
       <DependentUpon>Faerie.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="ProjectAether\app\Cards\_.ts" />
-    <Content Include="ProjectAether\app\Cards\_.js">
-      <DependentUpon>_.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="ProjectAether\app\Decks\decks.ts" />
     <Content Include="ProjectAether\app\Decks\decks.js">
       <DependentUpon>decks.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="ProjectAether\app\Space.ts" />
     <Content Include="ProjectAether\app\Space.js">
-      <DependentUpon>Space.ts</DependentUpon>
-    </Content>
-    <Content Include="ProjectAether\app\Space.min.js">
       <DependentUpon>Space.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="ProjectAether\libs\underscore.d.ts" />
@@ -173,9 +136,6 @@
     <Content Include="ProjectAether\libs\underscore-ko-1.1.0.min.js" />
     <Content Include="ProjectAether\libs\underscore.js" />
     <Content Include="ProjectAether\libs\underscore.min.js" />
-    <Content Include="ProjectAether\libs\underscore.d.js">
-      <DependentUpon>underscore.d.ts</DependentUpon>
-    </Content>
     <Content Include="stylesheets\ie.css" />
     <Content Include="stylesheets\print.css" />
     <Content Include="stylesheets\screen.css" />
