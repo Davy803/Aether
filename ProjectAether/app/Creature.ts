@@ -1,4 +1,4 @@
-/// <reference path="main.ts" />
+/// <reference path="../main.ts" />
 
 module ProjectAether {
     export class Creature implements Target, Selectable {
@@ -8,19 +8,23 @@ module ProjectAether {
         damage: StatNumber;
         life: StatNumber;
         movement: StatNumber;
+        totalMovement: StatNumber;
         flying: StatBool;
         controller: KnockoutObservablePlayer = ko.observable();
         location: KnockoutObservableSpace = ko.observable();
         canAttack = ko.observable(true);
         canMove: KnockoutComputedBool;
-        
+        buffs: KnockoutObservableArrayBuff = ko.observableArray([]);
+        nativeBuffs: Buff[];
         constructor (name: string, stats: Stats) {
             this.name = ko.observable(name);
             this.damage = new StatNumber("damage", stats.damage);
             this.movement = new StatNumber("movement", stats.movement);
+            this.totalMovement = new StatNumber("totalMovement", stats.movement);
             this.life = new StatNumber("life", stats.life);
             this.flying = new StatBool("flying", stats.flying);
             this.canMove = ko.computed((): bool=> this.movement.current() > 0);
+            this.nativeBuffs = stats.buffs || [];
         }
         enterPlay(controller: Player, location: Space) {
             this.controller(controller);
@@ -28,8 +32,9 @@ module ProjectAether {
         }
         beginTurn() {
             this.canAttack(true);
-            this.movement.reset();
+            this.movement.current(this.totalMovement.current());
             this.location().owner(this.controller());
+            _.each(this._allBuffs(), (b: Buff) =>b.apply(this));
         }
         attack(targetCreature: Creature) {
             assert(this.canAttack());
@@ -51,6 +56,10 @@ module ProjectAether {
             this.location(newSpace);
             newSpace.setValue(this);
         }
+
+        private _allBuffs() : Buff[]{
+            return _.union(this.nativeBuffs, this.buffs());
+        }
         private _die() {
             this.location().setValue(null);
             this.location(null);
@@ -64,12 +73,18 @@ module ProjectAether {
         movement: number;
         life: number;
         flying?: bool;
+        buffs?: Buff[];
     }
     export class Stat {
         current: KnockoutObservableAny;
+        modified: KnockoutComputedBool;
+        increased: KnockoutComputedBool;
+        decreased: KnockoutComputedBool;
         constructor (public name: string, public initial: any) {
             this.current = ko.observable(initial);
+            this.modified = ko.computed((): bool =>this.current() === this.initial);
         }
+        
         reset() {
             this.current(this.initial);
         }
@@ -79,6 +94,8 @@ module ProjectAether {
         current: KnockoutObservableNumber;
         constructor (public name: string, public initial: number) {
             super(name, initial);
+            this.increased = ko.computed((): bool =>this.current() > this.initial);
+            this.decreased = ko.computed((): bool =>this.current() < this.initial);
         }
         add(amount: number) {
             this.current(this.current() + amount);
@@ -86,12 +103,17 @@ module ProjectAether {
         subtract(amount: number) {
             this.current(this.current() - amount);
         }
+        halve() {
+            this.current(Math.round(this.current() / 2));
+        }
     }
 
     export class StatBool extends Stat {
         current: KnockoutObservableBool;
         constructor (public name: string, public initial: bool) {
             super(name, initial);
+            this.increased = ko.computed((): bool =>this.current() && !this.initial); //Went from false to true
+            this.decreased = ko.computed((): bool =>!this.current() && this.initial); //Went from true to false
         }
         invert() {
             this.current(!this.current());

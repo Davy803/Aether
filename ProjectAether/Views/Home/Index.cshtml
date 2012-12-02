@@ -8,10 +8,14 @@
     <script src="/app/Helpers.js"></script>
     @Scripts.Render("~/Bundles/ProjectAether")
     @Styles.Render("~/Bundles/Styles")
+    <script src="/main.js"></script>
 </head>
 <body>
     <p>
         Current player: <span data-bind="text: currentPlayer().name"></span>
+    </p>
+    <p>
+        Current action: <span data-bind="text: currentAction().name"></span>
     </p>
     <div data-bind="template: {name: 'playerTemplate', data: player1}">
     </div>
@@ -59,15 +63,13 @@
     @using (Html.Template("creatureTemplate"))
     {
         <div class="creature" data-bind="css: {player1: controller() === $root.player1, player2: controller() === $root.player2, flying: flying.current }">
-        <div data-bind="text: name"></div>
-        <div>
-            <span data-bind="css: {disabled: !canAttack()}, attr: {title: damage.original}">♆<span data-bind="text: damage.current"></span></span>
-            <span data-bind="attr: {title: life.original}">♥<span data-bind="text: life.current"></span></span>
-            <span data-bind="css: {disabled: !canMove()}, attr: {title: movement.original}">♐<span data-bind="text: movement.current"></span></span>
+        <div class="name" data-bind="text: name"></div>
+        <div class="stats">
+            <span data-bind="css: {disabled: !canAttack()}, attr: {title: damage.original}">♆<span data-bind="stat: damage"></span></span>
+            <span data-bind="attr: {title: life.original}">♥<span data-bind="stat: life"></span></span>
+            <span data-bind="css: {disabled: !canMove()}, attr: {title: movement.original}">♐<span data-bind="stat: movement"></span>/<span data-bind="stat: totalMovement"></span></span>
         </div>
         </div>
-        
-        
     }
     @using (Html.Template("cardTemplate"))
     {

@@ -18,3 +18,4 @@ window.onload = function () {
     var hash = new HashSet();
     viewModel = game;
 };
+//@ sourceMappingURL=main.js.map

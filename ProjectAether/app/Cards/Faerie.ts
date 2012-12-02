@@ -1,5 +1,4 @@
-/// <reference path="../main.ts" />
-/// <reference path="_.ts" />
+/// <reference path="Card.ts" />
 module ProjectAether.Cards {
     export class Faerie extends CreatureCard {
         constructor (owner: Player) {

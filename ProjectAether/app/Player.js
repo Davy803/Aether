@@ -45,9 +45,13 @@ var ProjectAether;
             return _.contains(this.cardsInHand(), card);
         };
         Player.prototype._drawCard = function () {
-            this.cardsInHand.push(this.deck.drawCard());
+            var card = this.deck.drawCard();
+            if(card !== undefined) {
+                this.cardsInHand.push(card);
+            }
         };
         return Player;
     })(ProjectAether.HasCallbacks);
     ProjectAether.Player = Player;    
 })(ProjectAether || (ProjectAether = {}));
+//@ sourceMappingURL=Player.js.map

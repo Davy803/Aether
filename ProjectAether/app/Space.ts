@@ -1,13 +1,13 @@
 /// <reference path="../libs/knockout.d.ts" />
 /// <reference path="../libs/underscore.d.ts" />
-/// <reference path="main.ts" />
+/// <reference path="../main.ts" />
 
 module ProjectAether {
-    export class Space implements Target, Selectable{
+    export class Space implements Target, Selectable {
         private _targetAction = ko.observable(TargetActions.None);
         targetAction: KnockoutComputedString;
         //targetAction = ko.observable(TargetActions.None);
-        isSelected: KnockoutComputedBool ;
+        isSelected: KnockoutComputedBool;
         private _value: KnockoutObservableAny = ko.observable(null);
         value: KnockoutComputed;
         owner: KnockoutObservablePlayer = ko.observable();
@@ -15,7 +15,14 @@ module ProjectAether {
             this.value = ko.computed(() =>this._value());
             this.owner(owner);
             this.targetAction = ko.computed({
-                read: () => this._targetAction() || this._value() && this._value().targetAction(),
+                read: () => {
+                    if (this._targetAction()) {
+                        return this._targetAction();
+                    } else if (this._value()) {
+                        return this._value().targetAction();
+                    }
+                    return TargetActions.None;
+                },
                 write: (newValue) => this._targetAction(newValue)
             });
             this.isSelected = ko.computed((): bool => this._value() && this._value().isSelected());

@@ -1,5 +1,4 @@
-/// <reference path="../main.ts" />
-/// <reference path="_.ts" />
+/// <reference path="Card.ts" />
 module ProjectAether.Cards {
     export class Centaur extends CreatureCard {
         constructor (owner: Player) {
@@ -7,6 +6,7 @@ module ProjectAether.Cards {
                 damage: 5,
                 life: 12,
                 movement: 2,
+                buff: [new Buffs.Slow()]
             });
         }
     }

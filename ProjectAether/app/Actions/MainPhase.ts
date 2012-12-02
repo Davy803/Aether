@@ -1,7 +1,8 @@
-/// <reference path="../main.ts" />
+/// <reference path="../../main.ts" />
 
 module ProjectAether.Actions {
     export class MainPhase implements Action {
+        name = "Main Phase";
         targetTypes = [TargetTypes.Card, TargetTypes.Creature, TargetTypes.Button];
         constructor (private game: Game) {
 
@@ -47,28 +48,29 @@ module ProjectAether.Actions {
             throw Error("Cannot target multiple spaces");
         }
 
-        private _canPlayCard(card: Card) {
+        _canPlayCard(card: Card) {
             var player = this.game.currentPlayer();
             var action = this._getCardAction(card);
-            return _.contains(player.cardsInHand(), card) 
-                && player.mana() >= card.cost 
+            return player.isHoldingCard(card)
+                && player.canPayCost(card.cost)
                 && this.game.hasValidNonButtonTargets(action);
         }
 
-        private _playCard(card: Card) {
+
+
+        _playCard(card: Card) {
             var action = this._getCardAction(card);
             card.isSelected(true);
             return action;
         }
-
-        
-        private _canMoveCreature(creature: Creature) {
+                
+        _canMoveCreature(creature: Creature) {
             var player = this.game.currentPlayer();
             var action = new Actions.CreatureAction(this.game.board, creature);
             return creature.controller() === player && this.game.hasValidNonButtonTargets(action);
         }
 
-        private _moveCreature(creature: Creature) {
+        _moveCreature(creature: Creature) {
             var player = this.game.currentPlayer();
             var action = new Actions.CreatureAction(this.game.board, creature);
             creature.isSelected(true);
@@ -76,7 +78,7 @@ module ProjectAether.Actions {
         }
 
 
-        private _getCardAction(card: Card): Action {
+        _getCardAction(card: Card): Action {
             var player = this.game.currentPlayer();
             if (card instanceof CreatureCard) {
                 return new Actions.PlayCreatureAction(player, <CreatureCard> card);

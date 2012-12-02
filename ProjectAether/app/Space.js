@@ -14,7 +14,14 @@ var ProjectAether;
             this.owner(owner);
             this.targetAction = ko.computed({
                 read: function () {
-                    return _this._targetAction() || _this._value() && _this._value().targetAction();
+                    if(_this._targetAction()) {
+                        return _this._targetAction();
+                    } else {
+                        if(_this._value()) {
+                            return _this._value().targetAction();
+                        }
+                    }
+                    return ProjectAether.TargetActions.None;
                 },
                 write: function (newValue) {
                     return _this._targetAction(newValue);
@@ -40,3 +47,4 @@ var ProjectAether;
     })();
     ProjectAether.Space = Space;    
 })(ProjectAether || (ProjectAether = {}));
+//@ sourceMappingURL=Space.js.map

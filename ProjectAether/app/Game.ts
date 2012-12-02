@@ -1,4 +1,4 @@
-/// <reference path="main.ts" />
+/// <reference path="../main.ts" />
 
 module ProjectAether {
     export class Game extends ProjectAether.HasCallbacks {
@@ -52,40 +52,14 @@ module ProjectAether {
             this.currentPlayer().beginTurn();
         }
 
-
-        //setValidTargets(action: Action) {
-        //    _.each(this.getValidTargets(action), (x) => x.isCurrentlyValidTarget(true));
-        //}
-
         setValidTargets(action: Action) {
-            var targets: Target[] = [];
-            _.forEach(action.targetTypes, targetType => {
-                switch (targetType) {
-                    case TargetTypes.Card:
-                        targets.push.apply(targets, this._getAllCards());
-                        break;
-                    case TargetTypes.Creature:
-                        targets.push.apply(targets, this._getAllCreatures());
-                        break;
-                    case TargetTypes.Player:
-                        targets.push.apply(targets, this._getAllPlayers());
-                        break;
-                    case TargetTypes.Space:
-                        targets.push.apply(targets, this._getAllSpaces());
-                        break;
-                    case TargetTypes.Button:
-                        targets.push.apply(targets, this._getAllButtons());
-                        break;
-                    default:
-                        throw Error("Unknown Target Type: " + targetType)
-                }
-            });
-            _.each(targets, (x: Target) => x.targetAction(action.getTargetAction(x)));
-            //return _.filter(targets, (x: Target) => action.getTargetAction(x) !== TargetActions.None);
+            _.each(this._getTargetsForAction(action), (x: Target) => x.targetAction(action.getTargetAction(x)));
         }
 
         hasValidNonButtonTargets(action: Action) {
-            return _.filter(this._getAllTargets(), (x: Target) => x.targetAction() !== TargetActions.Button).length > 0;
+            return _.filter(this._getTargetsForAction(action), (x: Target) => {
+                var targetAction = action.getTargetAction(x); return targetAction !== TargetActions.Button && targetAction !== TargetActions.None;
+            }).length > 0;
         }
         private _getAllCards(): Card[] {
             return _.union(
@@ -118,7 +92,32 @@ module ProjectAether {
             return _.union(this._getAllCards(), this._getAllCreatures(), this._getAllPlayers(), this._getAllSpaces(), this._getAllButtons());
         }
         private _clearAllTargetValidity() {
-            _.each(this._getAllTargets(), (x: Target) =>x.targetAction(TargetActions.None));
+            _.each(this._getAllTargets(), (x: Target) => x.targetAction(TargetActions.None));
+        }
+        private _getTargetsForAction(action: Action){
+            var targets: Target[] = [];
+            _.forEach(action.targetTypes, targetType => {
+                switch (targetType) {
+                    case TargetTypes.Card:
+                        targets.push.apply(targets, this._getAllCards());
+                        break;
+                    case TargetTypes.Creature:
+                        targets.push.apply(targets, this._getAllCreatures());
+                        break;
+                    case TargetTypes.Player:
+                        targets.push.apply(targets, this._getAllPlayers());
+                        break;
+                    case TargetTypes.Space:
+                        targets.push.apply(targets, this._getAllSpaces());
+                        break;
+                    case TargetTypes.Button:
+                        targets.push.apply(targets, this._getAllButtons());
+                        break;
+                    default:
+                        throw Error("Unknown Target Type: " + targetType)
+                }
+            });
+            return targets;
         }
     }
 

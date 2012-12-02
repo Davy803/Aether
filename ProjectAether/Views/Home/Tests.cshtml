@@ -1,0 +1,19 @@
+﻿
+@using System.Web.Optimization;
+@using ProjectAether
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="/libs/knockout.debug.js"></script>
+    <script src="/libs/tsUnit.js"></script>
+    <script src="/app/Helpers.js"></script>
+    @Scripts.Render("~/Bundles/Tests")
+    @Scripts.Render("~/Bundles/ProjectAether")
+    @Styles.Render("~/Bundles/Styles")
+    <script src="/tests/app/main.js"></script>
+</head>
+<body>
+    <div id="results"></div>
+</body>
+</html>

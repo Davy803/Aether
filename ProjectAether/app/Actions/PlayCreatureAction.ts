@@ -1,7 +1,8 @@
-/// <reference path="../main.ts" />
+/// <reference path="../../main.ts" />
 
 module ProjectAether.Actions {
     export class PlayCreatureAction implements Action {
+        name = "Play Creature Action";
         targetTypes = [TargetTypes.Space, TargetTypes.Button];
         constructor (private player: Player, private card: CreatureCard) {
 

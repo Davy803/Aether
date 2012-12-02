@@ -44,3 +44,25 @@ ko.bindingHandlers['class'] = {
         ko.utils.toggleDomNodeCssClass(element, value, true);
     }
 };
+ko.bindingHandlers['stat'] = {
+    'update': function (element, valueAccessor) {
+        var value = ko.utils.unwrapObservable(valueAccessor());
+        ko.bindingHandlers['text'].update(element, function () {
+            return value.current;
+        });
+        var cssObj = {
+            'increased': value.increased,
+            'decreased': value.decreased
+        };
+        ko.bindingHandlers['css'].update(element, function () {
+            return cssObj;
+        });
+        var attrObj = {
+            'title': value.initial
+        };
+        ko.bindingHandlers['attr'].update(element, function () {
+            return attrObj;
+        });
+    }
+};
+//@ sourceMappingURL=Helpers.js.map

@@ -12,7 +12,10 @@ var ProjectAether;
                         _super.call(this, "Centaur", 5, owner, {
             damage: 5,
             life: 12,
-            movement: 2
+            movement: 2,
+            buff: [
+                new ProjectAether.Buffs.Slow()
+            ]
         });
             }
             return Centaur;
@@ -21,3 +24,4 @@ var ProjectAether;
     })(ProjectAether.Cards || (ProjectAether.Cards = {}));
     var Cards = ProjectAether.Cards;
 })(ProjectAether || (ProjectAether = {}));
+//@ sourceMappingURL=Centaur.js.map

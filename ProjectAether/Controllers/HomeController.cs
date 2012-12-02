@@ -15,6 +15,14 @@ namespace ProjectAether.Controllers
         {
             return View();
         }
+        
+        //
+        // GET: /Home/
+
+        public ActionResult Tests()
+        {
+            return View();
+        }
 
     }
 }

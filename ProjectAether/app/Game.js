@@ -53,48 +53,14 @@ var ProjectAether;
             this.currentPlayer().beginTurn();
         };
         Game.prototype.setValidTargets = function (action) {
-            var _this = this;
-            var targets = [];
-            _.forEach(action.targetTypes, function (targetType) {
-                switch(targetType) {
-                    case ProjectAether.TargetTypes.Card: {
-                        targets.push.apply(targets, _this._getAllCards());
-                        break;
-
-                    }
-                    case ProjectAether.TargetTypes.Creature: {
-                        targets.push.apply(targets, _this._getAllCreatures());
-                        break;
-
-                    }
-                    case ProjectAether.TargetTypes.Player: {
-                        targets.push.apply(targets, _this._getAllPlayers());
-                        break;
-
-                    }
-                    case ProjectAether.TargetTypes.Space: {
-                        targets.push.apply(targets, _this._getAllSpaces());
-                        break;
-
-                    }
-                    case ProjectAether.TargetTypes.Button: {
-                        targets.push.apply(targets, _this._getAllButtons());
-                        break;
-
-                    }
-                    default: {
-                        throw Error("Unknown Target Type: " + targetType);
-
-                    }
-                }
-            });
-            _.each(targets, function (x) {
+            _.each(this._getTargetsForAction(action), function (x) {
                 return x.targetAction(action.getTargetAction(x));
             });
         };
         Game.prototype.hasValidNonButtonTargets = function (action) {
-            return _.filter(this._getAllTargets(), function (x) {
-                return x.targetAction() !== ProjectAether.TargetActions.Button;
+            return _.filter(this._getTargetsForAction(action), function (x) {
+                var targetAction = action.getTargetAction(x);
+                return targetAction !== ProjectAether.TargetActions.Button && targetAction !== ProjectAether.TargetActions.None;
             }).length > 0;
         };
         Game.prototype._getAllCards = function () {
@@ -130,6 +96,44 @@ var ProjectAether;
                 return x.targetAction(ProjectAether.TargetActions.None);
             });
         };
+        Game.prototype._getTargetsForAction = function (action) {
+            var _this = this;
+            var targets = [];
+            _.forEach(action.targetTypes, function (targetType) {
+                switch(targetType) {
+                    case ProjectAether.TargetTypes.Card: {
+                        targets.push.apply(targets, _this._getAllCards());
+                        break;
+
+                    }
+                    case ProjectAether.TargetTypes.Creature: {
+                        targets.push.apply(targets, _this._getAllCreatures());
+                        break;
+
+                    }
+                    case ProjectAether.TargetTypes.Player: {
+                        targets.push.apply(targets, _this._getAllPlayers());
+                        break;
+
+                    }
+                    case ProjectAether.TargetTypes.Space: {
+                        targets.push.apply(targets, _this._getAllSpaces());
+                        break;
+
+                    }
+                    case ProjectAether.TargetTypes.Button: {
+                        targets.push.apply(targets, _this._getAllButtons());
+                        break;
+
+                    }
+                    default: {
+                        throw Error("Unknown Target Type: " + targetType);
+
+                    }
+                }
+            });
+            return targets;
+        };
         return Game;
     })(ProjectAether.HasCallbacks);
     ProjectAether.Game = Game;    
@@ -159,3 +163,4 @@ var ProjectAether;
     })(Button);
     ProjectAether.CancelButton = CancelButton;    
 })(ProjectAether || (ProjectAether = {}));
+//@ sourceMappingURL=Game.js.map

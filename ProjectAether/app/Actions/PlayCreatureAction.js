@@ -5,6 +5,7 @@ var ProjectAether;
             function PlayCreatureAction(player, card) {
                 this.player = player;
                 this.card = card;
+                this.name = "Play Creature Action";
                 this.targetTypes = [
                     ProjectAether.TargetTypes.Space, 
                     ProjectAether.TargetTypes.Button
@@ -62,3 +63,4 @@ var ProjectAether;
     })(ProjectAether.Actions || (ProjectAether.Actions = {}));
     var Actions = ProjectAether.Actions;
 })(ProjectAether || (ProjectAether = {}));
+//@ sourceMappingURL=PlayCreatureAction.js.map

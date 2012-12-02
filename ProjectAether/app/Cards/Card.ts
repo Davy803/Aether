@@ -1,5 +1,8 @@
-/// <reference path="main.ts" />
-
+/// <reference path="Centaur.ts" />
+/// <reference path="Faerie.ts" />
+/// <reference path="Unicorn.ts" />
+/// <reference path="../../main.ts" />
+ 
 module ProjectAether {
     export class CardBase {
         targetAction = ko.observable(TargetActions.None);

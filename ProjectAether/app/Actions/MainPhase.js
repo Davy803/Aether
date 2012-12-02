@@ -4,6 +4,7 @@ var ProjectAether;
         var MainPhase = (function () {
             function MainPhase(game) {
                 this.game = game;
+                this.name = "Main Phase";
                 this.targetTypes = [
                     ProjectAether.TargetTypes.Card, 
                     ProjectAether.TargetTypes.Creature, 
@@ -47,7 +48,7 @@ var ProjectAether;
             MainPhase.prototype._canPlayCard = function (card) {
                 var player = this.game.currentPlayer();
                 var action = this._getCardAction(card);
-                return _.contains(player.cardsInHand(), card) && player.mana() >= card.cost && this.game.hasValidNonButtonTargets(action);
+                return player.isHoldingCard(card) && player.canPayCost(card.cost) && this.game.hasValidNonButtonTargets(action);
             };
             MainPhase.prototype._playCard = function (card) {
                 var action = this._getCardAction(card);
@@ -78,3 +79,4 @@ var ProjectAether;
     })(ProjectAether.Actions || (ProjectAether.Actions = {}));
     var Actions = ProjectAether.Actions;
 })(ProjectAether || (ProjectAether = {}));
+//@ sourceMappingURL=MainPhase.js.map

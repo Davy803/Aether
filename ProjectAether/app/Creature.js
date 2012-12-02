@@ -13,23 +13,30 @@ var ProjectAether;
             this.controller = ko.observable();
             this.location = ko.observable();
             this.canAttack = ko.observable(true);
+            this.buffs = ko.observableArray([]);
             this.name = ko.observable(name);
             this.damage = new StatNumber("damage", stats.damage);
             this.movement = new StatNumber("movement", stats.movement);
+            this.totalMovement = new StatNumber("totalMovement", stats.movement);
             this.life = new StatNumber("life", stats.life);
             this.flying = new StatBool("flying", stats.flying);
             this.canMove = ko.computed(function () {
                 return _this.movement.current() > 0;
             });
+            this.nativeBuffs = stats.buffs || [];
         }
         Creature.prototype.enterPlay = function (controller, location) {
             this.controller(controller);
             this.location(location);
         };
         Creature.prototype.beginTurn = function () {
+            var _this = this;
             this.canAttack(true);
-            this.movement.reset();
+            this.movement.current(this.totalMovement.current());
             this.location().owner(this.controller());
+            _.each(this._allBuffs(), function (b) {
+                return b.apply(_this);
+            });
         };
         Creature.prototype.attack = function (targetCreature) {
             ProjectAether.assert(this.canAttack());
@@ -51,6 +58,9 @@ var ProjectAether;
             this.location(newSpace);
             newSpace.setValue(this);
         };
+        Creature.prototype._allBuffs = function () {
+            return _.union(this.nativeBuffs, this.buffs());
+        };
         Creature.prototype._die = function () {
             this.location().setValue(null);
             this.location(null);
@@ -64,7 +74,11 @@ var ProjectAether;
         function Stat(name, initial) {
             this.name = name;
             this.initial = initial;
+            var _this = this;
             this.current = ko.observable(initial);
+            this.modified = ko.computed(function () {
+                return _this.current() === _this.initial;
+            });
         }
         Stat.prototype.reset = function () {
             this.current(this.initial);
@@ -75,9 +89,16 @@ var ProjectAether;
     var StatNumber = (function (_super) {
         __extends(StatNumber, _super);
         function StatNumber(name, initial) {
+            var _this = this;
                 _super.call(this, name, initial);
             this.name = name;
             this.initial = initial;
+            this.increased = ko.computed(function () {
+                return _this.current() > _this.initial;
+            });
+            this.decreased = ko.computed(function () {
+                return _this.current() < _this.initial;
+            });
         }
         StatNumber.prototype.add = function (amount) {
             this.current(this.current() + amount);
@@ -85,15 +106,25 @@ var ProjectAether;
         StatNumber.prototype.subtract = function (amount) {
             this.current(this.current() - amount);
         };
+        StatNumber.prototype.halve = function () {
+            this.current(Math.round(this.current() / 2));
+        };
         return StatNumber;
     })(Stat);
     ProjectAether.StatNumber = StatNumber;    
     var StatBool = (function (_super) {
         __extends(StatBool, _super);
         function StatBool(name, initial) {
+            var _this = this;
                 _super.call(this, name, initial);
             this.name = name;
             this.initial = initial;
+            this.increased = ko.computed(function () {
+                return _this.current() && !_this.initial;
+            });
+            this.decreased = ko.computed(function () {
+                return !_this.current() && _this.initial;
+            });
         }
         StatBool.prototype.invert = function () {
             this.current(!this.current());
@@ -102,3 +133,4 @@ var ProjectAether;
     })(Stat);
     ProjectAether.StatBool = StatBool;    
 })(ProjectAether || (ProjectAether = {}));
+//@ sourceMappingURL=Creature.js.map

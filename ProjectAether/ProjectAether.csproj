@@ -22,13 +22,81 @@
     <IsCompassProject>True</IsCompassProject>
   </PropertyGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\Buffs\Buff.ts" />
+    <TypeScriptCompile Include="app\Buffs\Slow.ts" />
+    <TypeScriptCompile Include="app\Actions\Action.ts" />
+    <Content Include="app\Actions\Action.js">
+      <DependentUpon>Action.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Actions\Action.min.js">
+      <DependentUpon>Action.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Actions\CreatureAction.min.js">
+      <DependentUpon>CreatureAction.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Actions\MainPhase.min.js">
+      <DependentUpon>MainPhase.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Actions\PlayCreatureAction.min.js">
+      <DependentUpon>PlayCreatureAction.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Board.min.js">
+      <DependentUpon>Board.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Buffs\Buff.min.js">
+      <DependentUpon>Buff.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Buffs\Slow.js">
+      <DependentUpon>Slow.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Buffs\Buff.js">
+      <DependentUpon>Buff.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Buffs\Slow.min.js">
+      <DependentUpon>Slow.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Cards\Card.js">
+      <DependentUpon>Card.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Cards\Card.min.js">
+      <DependentUpon>Card.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Cards\Centaur.min.js">
+      <DependentUpon>Centaur.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Cards\Faerie.min.js">
+      <DependentUpon>Faerie.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Cards\Unicorn.min.js">
+      <DependentUpon>Unicorn.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Creature.min.js">
+      <DependentUpon>Creature.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Deck.min.js">
+      <DependentUpon>Deck.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Decks\decks.min.js">
+      <DependentUpon>decks.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Game.min.js">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Player.min.js">
+      <DependentUpon>Player.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Target.min.js">
+      <DependentUpon>Target.ts</DependentUpon>
+    </Content>
+    <Content Include="main.min.js">
+      <DependentUpon>main.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Space.min.js">
+      <DependentUpon>Space.ts</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <TypeScriptCompile Include="app\Player.ts" />
     <TypeScriptCompile Include="app\Creature.ts" />
-    <TypeScriptCompile Include="app\Action.ts" />
-    <Content Include="app\Action.js">
-      <DependentUpon>Action.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="app\Actions\PlayCreatureAction.ts" />
     <TypeScriptCompile Include="app\Actions\MainPhase.ts" />
     <TypeScriptCompile Include="app\Actions\CreatureAction.ts" />
@@ -41,11 +109,6 @@
     <Content Include="app\Actions\PlayCreatureAction.js">
       <DependentUpon>PlayCreatureAction.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="app\Actions\_.ts" />
-    <TypeScriptCompile Include="app\Card.ts" />
-    <Content Include="app\Card.js">
-      <DependentUpon>Card.ts</DependentUpon>
-    </Content>
     <Content Include="app\Creature.js">
       <DependentUpon>Creature.ts</DependentUpon>
     </Content>
@@ -53,8 +116,8 @@
     <Content Include="app\Game.js">
       <DependentUpon>Game.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="app\main.ts" />
-    <Content Include="app\main.js">
+    <TypeScriptCompile Include="main.ts" />
+    <Content Include="main.js">
       <DependentUpon>main.ts</DependentUpon>
     </Content>
     <Content Include="app\Player.js">
@@ -66,10 +129,17 @@
     </Content>
     <TypeScriptCompile Include="libs\hash\jshashset.d.ts" />
     <Content Include="libs\hash\jshashset.js" />
-    <Content Include="libs\hash\jshashset_src.js" />
+    <Content Include="libs\hash\jshashset.debug.js" />
     <TypeScriptCompile Include="libs\hash\jshashtable.d.ts" />
     <Content Include="libs\hash\jshashtable.js" />
-    <Content Include="libs\hash\jshashtable_src.js" />
+    <Content Include="libs\hash\jshashtable.debug.js" />
+    <TypeScriptCompile Include="libs\tsUnit.ts" />
+    <Content Include="libs\tsUnit.js">
+      <DependentUpon>tsUnit.ts</DependentUpon>
+    </Content>
+    <Content Include="libs\tsUnit.min.js">
+      <DependentUpon>tsUnit.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\knockout.debug.js" />
     <Content Include="Scripts\knockout.js" />
     <Content Include="Scripts\r.js" />
@@ -105,7 +175,7 @@
     <Content Include="app\Cards\Faerie.js">
       <DependentUpon>Faerie.ts</DependentUpon>
     </Content>
-    <TypeScriptCompile Include="app\Cards\_.ts" />
+    <TypeScriptCompile Include="app\Cards\Card.ts" />
     <TypeScriptCompile Include="app\Decks\decks.ts" />
     <Content Include="app\Decks\decks.js">
       <DependentUpon>decks.ts</DependentUpon>
@@ -123,10 +193,106 @@
     <Content Include="stylesheets\ie.css" />
     <Content Include="stylesheets\print.css" />
     <Content Include="stylesheets\screen.css" />
+    <TypeScriptCompile Include="tests\app\Actions\MainPhaseTests.ts" />
+    <Content Include="tests\app\Actions\MainPhaseTests.js">
+      <DependentUpon>MainPhaseTests.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="tests\app\main.ts" />
+    <TypeScriptCompile Include="tests\app\GameTests.ts" />
+    <Content Include="tests\app\Actions\MainPhaseTests.min.js">
+      <DependentUpon>MainPhaseTests.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="tests\app\Cards\CardTests.ts" />
+    <Content Include="tests\app\Cards\CardTests.js">
+      <DependentUpon>CardTests.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="tests\app\Decks\DeckTests.ts" />
+    <Content Include="tests\app\Cards\CardTests.min.js">
+      <DependentUpon>CardTests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\Decks\DeckTests.js">
+      <DependentUpon>DeckTests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\Decks\DeckTests.min.js">
+      <DependentUpon>DeckTests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\GameTests.js">
+      <DependentUpon>GameTests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\GameTests.min.js">
+      <DependentUpon>GameTests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\main.js">
+      <DependentUpon>main.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\main.min.js">
+      <DependentUpon>main.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="tests\app\PlayerTests.ts" />
+    <Content Include="tests\app\PlayerTests.js">
+      <DependentUpon>PlayerTests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\PlayerTests.min.js">
+      <DependentUpon>PlayerTests.ts</DependentUpon>
+    </Content>
     <Content Include="web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="packages.config" />
+    <Content Include="app\Board.js.map">
+      <DependentUpon>Board.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Creature.js.map">
+      <DependentUpon>Creature.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Target.js.map">
+      <DependentUpon>Target.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Helpers.js.map">
+      <DependentUpon>Helpers.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Buffs\Slow.js.map">
+      <DependentUpon>Slow.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Game.js.map">
+      <DependentUpon>Game.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Player.js.map">
+      <DependentUpon>Player.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Deck.js.map">
+      <DependentUpon>Deck.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Cards\Card.js.map">
+      <DependentUpon>Card.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Decks\decks.js.map">
+      <DependentUpon>decks.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Actions\CreatureAction.js.map">
+      <DependentUpon>CreatureAction.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Cards\Centaur.js.map">
+      <DependentUpon>Centaur.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Cards\Unicorn.js.map">
+      <DependentUpon>Unicorn.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Space.js.map">
+      <DependentUpon>Space.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Buffs\Buff.js.map">
+      <DependentUpon>Buff.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Cards\Faerie.js.map">
+      <DependentUpon>Faerie.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Actions\MainPhase.js.map">
+      <DependentUpon>MainPhase.ts</DependentUpon>
+    </Content>
+    <Content Include="app\Actions\PlayCreatureAction.js.map">
+      <DependentUpon>PlayCreatureAction.ts</DependentUpon>
+    </Content>
     <None Include="BundleTransformer.Configuration.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -154,11 +320,36 @@
       <CompileStyle>Nested</CompileStyle>
       <DebugInfo>False</DebugInfo>
     </Content>
+    <Content Include="main.js.map">
+      <DependentUpon>main.ts</DependentUpon>
+    </Content>
+    <Content Include="libs\tsUnit.js.map">
+      <DependentUpon>tsUnit.ts</DependentUpon>
+    </Content>
     <None Include="PublishProfiles\aether - FTP.pubxml" />
     <None Include="PublishProfiles\aether - Web Deploy.pubxml" />
     <Content Include="sass\_animations.scss" />
     <Content Include="sass\_mixins.scss" />
     <None Include="sass\_keyframes.sass" />
+    <Content Include="Views\Home\Tests.cshtml" />
+    <Content Include="tests\app\Actions\MainPhaseTests.js.map">
+      <DependentUpon>MainPhaseTests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\GameTests.js.map">
+      <DependentUpon>GameTests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\main.js.map">
+      <DependentUpon>main.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\Decks\DeckTests.js.map">
+      <DependentUpon>DeckTests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\Cards\CardTests.js.map">
+      <DependentUpon>CardTests.ts</DependentUpon>
+    </Content>
+    <Content Include="tests\app\PlayerTests.js.map">
+      <DependentUpon>PlayerTests.ts</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -272,7 +463,9 @@
     </Compile>
     <Compile Include="HtmlHelperExtensions.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="tests\app\Buffs\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

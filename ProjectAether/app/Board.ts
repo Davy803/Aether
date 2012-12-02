@@ -1,4 +1,4 @@
-/// <reference path="main.ts" />
+/// <reference path="../main.ts" />
 /// <reference path="../libs/hash/jshashset.d.ts" />
 module ProjectAether {
     export class Board {

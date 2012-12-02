@@ -26,3 +26,4 @@ var ProjectAether;
     })(CardBase);
     ProjectAether.CreatureCard = CreatureCard;    
 })(ProjectAether || (ProjectAether = {}));
+//@ sourceMappingURL=Card.js.map

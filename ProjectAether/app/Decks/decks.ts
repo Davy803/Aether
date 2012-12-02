@@ -1,6 +1,4 @@
-/// <reference path="../main.ts" />
-/// <reference path="../Cards/_.ts" />
-
+/// <reference path="../../main.ts" />
 
 module ProjectAether.Decks {
     function getCards(type: new (owner: Player) => Card, count: number, owner: Player) {

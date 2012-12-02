@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectAether", "ProjectAether\ProjectAether.csproj", "{8AE2B39F-013C-4452-9DCA-2E054EACD8F8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BBD20DE-82ED-4150-82C9-FE434DED079E}"
+	ProjectSection(SolutionItems) = preProject
+		WE-settings.xml = WE-settings.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

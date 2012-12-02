@@ -1,3 +1,4 @@
+
 /* Welcome to Compass.
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
@@ -12,6 +13,8 @@ $spaceNormalColor : wheat;
 $player1Color : adjust-hue($spaceNormalColor, 45deg);
 $player2Color : adjust-hue($spaceNormalColor, -45deg);
 $clickableColor : limegreen;
+$player1TargetColor : adjust-hue($clickableColor, 25deg);
+$player2TargetColor : adjust-hue($clickableColor, -25deg);
 $spaceOccupiedColor : darken($spaceNormalColor, 20%);
 $player1OccupiedColor : adjust-hue($spaceOccupiedColor, 45deg);
 $player2OccupiedColor : adjust-hue($spaceOccupiedColor, -45deg);
@@ -98,8 +101,6 @@ $paddingLeft: ($spaceWidth + $padding) / 2;
 .board  {
 	display: table;
 	cursor: default;
-	@include transform(rotateX(30deg) translateZ(23px) translateX(79px));
-	@include perspective(600px);
 	.row  {
 		clear: both;
 		.space  {
@@ -125,7 +126,6 @@ $paddingLeft: ($spaceWidth + $padding) / 2;
 				height: $halfSpaceHeight;
 				text-align: center;
 				background: $spaceNormalColor;
-				font-size: 24px;
 			}
 			.bottom  {
 				display: block;
@@ -145,6 +145,18 @@ $paddingLeft: ($spaceWidth + $padding) / 2;
 			.creature {
 				height: 100%;
 				@include border-radius(8px, 8px);
+				.name {
+					font-size: 24px;
+				}
+				.stats {
+					font-size: 14px;
+					.increased {
+						color: green;
+					}
+					.decreased {
+						color: red;
+					}
+				}
 				&.player1  {
 					background: $player1OccupiedColor;
 				}	
@@ -160,6 +172,12 @@ $paddingLeft: ($spaceWidth + $padding) / 2;
 				@include hexBackgroundColor($clickableColor);
 				&:hover  {
 					@include hexBackgroundColor($hoverColor);
+				}
+				&.player1 {
+					@include hexBackgroundColor($player1TargetColor);
+				}
+				&.player2 {
+					@include hexBackgroundColor($player2TargetColor);
 				}
 			}
 			&:hover {

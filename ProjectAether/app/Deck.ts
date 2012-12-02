@@ -1,4 +1,4 @@
-/// <reference path="main.ts" />
+/// <reference path="../main.ts" />
 
 module ProjectAether {
     export class Deck {

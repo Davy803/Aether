@@ -1,4 +1,4 @@
-/// <reference path="main.ts" />
+/// <reference path="../main.ts" />
 
 module ProjectAether {
     export class Player extends ProjectAether.HasCallbacks implements Target {
@@ -34,9 +34,11 @@ module ProjectAether {
         isHoldingCard(card: Card) {
             return _.contains(this.cardsInHand(), card);
         }
-        private _drawCard() {
-            this.cardsInHand.push(this.deck.drawCard());
-
+        _drawCard() {
+            var card = this.deck.drawCard()
+            if (card !== undefined) {
+                this.cardsInHand.push(card);
+            }
         }
     }
 
