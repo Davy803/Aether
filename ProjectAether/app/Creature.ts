@@ -7,6 +7,7 @@ module ProjectAether {
         name: KnockoutObservableString;
         damage: StatNumber;
         life: StatNumber;
+        totalLife: StatNumber;
         movement: StatNumber;
         totalMovement: StatNumber;
         flying: StatBool;
@@ -22,6 +23,7 @@ module ProjectAether {
             this.movement = new StatNumber("movement", stats.movement);
             this.totalMovement = new StatNumber("totalMovement", stats.movement);
             this.life = new StatNumber("life", stats.life);
+            this.totalLife = new StatNumber("totalLife", stats.life);
             this.flying = new StatBool("flying", stats.flying);
             this.canMove = ko.computed((): bool=> this.movement.current() > 0);
             this.nativeBuffs = stats.buffs || [];
@@ -29,12 +31,17 @@ module ProjectAether {
         enterPlay(controller: Player, location: Space) {
             this.controller(controller);
             this.location(location);
+            this._applyAllBuffs();
         }
         beginTurn() {
+            _.each(this._allBuffs(), (b: Buff) =>b.appliedThisTurn = false);
             this.canAttack(true);
+            this.totalMovement.reset();
+            this.totalLife.reset();
+            this.damage.reset();
             this.movement.current(this.totalMovement.current());
             this.location().owner(this.controller());
-            _.each(this._allBuffs(), (b: Buff) =>b.apply(this));
+            this._applyAllBuffs();
         }
         attack(targetCreature: Creature) {
             assert(this.canAttack());
@@ -65,6 +72,12 @@ module ProjectAether {
             this.location(null);
             this.controller().creaturesInPlay.remove(this);
             this.controller(null);
+        }
+
+        private _applyAllBuffs() {
+            _.chain(this._allBuffs())
+                .filter((b: Buff) => !b.appliedThisTurn)
+                .each((b: Buff) =>b.apply(this));
         }
     }
 

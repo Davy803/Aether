@@ -6,7 +6,7 @@ module ProjectAether.Cards {
                 damage: 5,
                 life: 12,
                 movement: 2,
-                buff: [new Buffs.Slow()]
+                buffs: [new Buffs.Slow()]
             });
         }
     }

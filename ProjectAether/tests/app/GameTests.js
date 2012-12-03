@@ -26,6 +26,7 @@ var ProjectAether;
         Tests.GameTests = GameTests;        
         var MockAction = (function () {
             function MockAction() {
+                this.name = "Mock Action";
                 this.targetTypes = [
                     ProjectAether.TargetTypes.Button
                 ];
@@ -100,21 +101,6 @@ var ProjectAether;
             return MainPhaseFactory;
         })();
         Tests.MainPhaseFactory = MainPhaseFactory;        
-        var ActionStub = (function () {
-            function ActionStub() {
-                this.targetTypes = [];
-            }
-            ActionStub.prototype.getTargetAction = function (Target) {
-                return "";
-            };
-            ActionStub.prototype.performMulti = function (targets) {
-            };
-            ActionStub.prototype.perform = function (target) {
-                return null;
-            };
-            return ActionStub;
-        })();
-        Tests.ActionStub = ActionStub;        
     })(ProjectAether.Tests || (ProjectAether.Tests = {}));
     var Tests = ProjectAether.Tests;
 })(ProjectAether || (ProjectAether = {}));

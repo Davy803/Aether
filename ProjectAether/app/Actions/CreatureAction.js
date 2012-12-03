@@ -15,7 +15,10 @@ var ProjectAether;
             CreatureAction.prototype.getTargetAction = function (target) {
                 if(target instanceof ProjectAether.Space) {
                     var space = target;
-                    return this.board.findEmptySquaresWithinXSteps(this.creature.location(), this.creature.movement.current()).contains(space) ? ProjectAether.TargetActions.Move : ProjectAether.TargetActions.None;
+                    var sourceLocation = this.creature.location();
+                    var movement = this.creature.movement.current();
+                    var flying = this.creature.flying.current();
+                    return this.board.findEmptySquaresWithinXSteps(sourceLocation, movement, flying).contains(space) ? ProjectAether.TargetActions.Move : ProjectAether.TargetActions.None;
                 }
                 if(target instanceof ProjectAether.Creature) {
                     return this._canAttack(target) ? ProjectAether.TargetActions.Attack : ProjectAether.TargetActions.None;
@@ -31,7 +34,8 @@ var ProjectAether;
                 }
                 if(target instanceof ProjectAether.Space) {
                     var newSpace = target;
-                    this.creature.move(newSpace, this.board.getDistance(this.creature, newSpace));
+                    var distance = this.board.getDistance(this.creature.location(), newSpace, this.creature.flying.current());
+                    this.creature.move(newSpace, distance);
                     this.creature.isSelected(false);
                     return null;
                 } else {

@@ -39,17 +39,34 @@ var ProjectAether;
             }
             return nodes;
         };
-        Board.prototype.getDistance = function (creature, target) {
+        Board.prototype.getDistance = function (source, target, flying, max) {
+            if (typeof flying === "undefined") { flying = false; }
+            if (typeof max === "undefined") { max = Math.max(this.height, this.width); }
+            if(flying) {
+                var dx = Math.abs(target.x - source.x);
+                var dy = Math.abs(target.y - source.y);
+                var dz = Math.abs(target.z() - source.z());
+                return Math.max(dx, dy, dz);
+            }
             var n = 1;
-            while(n <= creature.movement.current()) {
-                if(this.findEmptySquaresWithinXSteps(creature.location(), n).contains(target)) {
+            while(n <= max) {
+                if(this.findEmptySquaresWithinXSteps(source, n).contains(target)) {
                     return n;
                 }
                 n = n + 1;
             }
             return null;
         };
-        Board.prototype.findEmptySquaresWithinXSteps = function (space, x) {
+        Board.prototype.findEmptySquaresWithinXSteps = function (space, x, flying) {
+            if (typeof flying === "undefined") { flying = false; }
+            var _this = this;
+            if(flying) {
+                var hashSet = new HashSet();
+                hashSet.addAll(_.filter(this.spaces, function (s) {
+                    return s.isEmpty() && x >= _this.getDistance(space, s, true);
+                }));
+                return hashSet;
+            }
             var results = this._recursiveFindEmptySquaresWithinXSteps(space, x);
             results.remove(space);
             return results;

@@ -6,6 +6,7 @@ module ProjectAether {
         apply(creature: Creature){
             throw Error("Method is abstract");
         } 
+        appliedThisTurn = false;
     }
     
     export interface KnockoutObservableArrayBuff extends KnockoutObservableArray {

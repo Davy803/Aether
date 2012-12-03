@@ -13,7 +13,7 @@ var ProjectAether;
             damage: 5,
             life: 12,
             movement: 2,
-            buff: [
+            buffs: [
                 new ProjectAether.Buffs.Slow()
             ]
         });

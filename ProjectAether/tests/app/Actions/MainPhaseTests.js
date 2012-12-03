@@ -16,7 +16,7 @@ var ProjectAether;
                 var game = Tests.GameFactory.create();
                 var mainPhase = new ProjectAether.Actions.MainPhase(game);
                 mainPhase._getCardAction = function (c) {
-                    return new Tests.ActionStub();
+                    return new Tests.MockAction();
                 };
                 var card = new ProjectAether.CardBase("test", 5, game.currentPlayer());
                 game.currentPlayer().isHoldingCard = function (card) {
@@ -30,7 +30,7 @@ var ProjectAether;
                 player.mana(2);
                 var mainPhase = new ProjectAether.Actions.MainPhase(game);
                 mainPhase._getCardAction = function (c) {
-                    return new Tests.ActionStub();
+                    return new Tests.MockAction();
                 };
                 var card = Tests.CardFactory.create(player, 5);
                 c.isFalsey(mainPhase._canPlayCard(card));
@@ -40,7 +40,7 @@ var ProjectAether;
                 var game = Tests.GameFactory.create(player);
                 var mainPhase = new ProjectAether.Actions.MainPhase(game);
                 mainPhase._getCardAction = function (c) {
-                    return new Tests.ActionStub();
+                    return new Tests.MockAction();
                 };
                 game.hasValidNonButtonTargets = function (action) {
                     return false;
@@ -53,7 +53,7 @@ var ProjectAether;
                 var game = Tests.GameFactory.create(player);
                 var mainPhase = new ProjectAether.Actions.MainPhase(game);
                 mainPhase._getCardAction = function (c) {
-                    return new Tests.ActionStub();
+                    return new Tests.MockAction();
                 };
                 player.mana(10);
                 game.currentPlayer().isHoldingCard = function (card) {

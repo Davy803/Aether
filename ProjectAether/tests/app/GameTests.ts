@@ -19,6 +19,7 @@ module ProjectAether.Tests {
 
     }
     export class MockAction implements Action {
+        name = "Mock Action";
         targetTypes = [TargetTypes.Button];
         getTargetAction = (t) => "";
         performMulti = (targets: Target[]) =>{ };
@@ -58,17 +59,6 @@ module ProjectAether.Tests {
         static create(game: Game = null) {
             game = game || GameFactory.create();
             return new Actions.MainPhase(game);
-        }
-    }
-
-    export class ActionStub implements Action {
-        targetTypes: string[] = [];
-        getTargetAction(Target) {
-            return "";
-        }
-        performMulti(targets: Target[]) { }
-        perform(target: Target): Action {
-            return null;
         }
     }
 }

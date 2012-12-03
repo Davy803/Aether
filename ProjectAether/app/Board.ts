@@ -50,22 +50,38 @@ module ProjectAether {
             return nodes;
         }
 
-        getDistance(creature: Creature, target: Space) {
+        getDistance(source: Space, target: Space, flying: bool = false, max: number = Math.max(this.height, this.width)) {
+            //Math is more straight forward with flying.
+            if (flying) {
+                var dx = Math.abs(target.x - source.x);
+                var dy = Math.abs(target.y - source.y);
+                var dz = Math.abs(target.z() - source.z());
+                return Math.max(dx, dy, dz);
+            }
+
             var n = 1;
-            while (n <= creature.movement.current()) {
-                if (this.findEmptySquaresWithinXSteps(creature.location(), n).contains(target)) {
+            while (n <= max) {
+                if (this.findEmptySquaresWithinXSteps(source, n).contains(target)) {
                     return n
                 }
                 n = n + 1;
             }
             return null;
         }
-        findEmptySquaresWithinXSteps(space: Space, x: number): IHashSet {
+        findEmptySquaresWithinXSteps(space: Space, x: number, flying: bool = false): IHashSet {
+            if (flying) {
+                var hashSet = new HashSet();
+                hashSet.addAll(_.filter(this.spaces,
+                    (s: Space) =>   s.isEmpty()
+                                    && x >= this.getDistance(space, s, true)));
+                return hashSet;
+            }
+
             var results = this._recursiveFindEmptySquaresWithinXSteps(space, x);
             results.remove(space);
             return results;
         }
-        private _recursiveFindEmptySquaresWithinXSteps(space: Space, x: number, current_set: IHashSet = null) : IHashSet {
+        private _recursiveFindEmptySquaresWithinXSteps(space: Space, x: number, current_set: IHashSet = null): IHashSet {
             if (current_set === null) {
                 current_set = new HashSet();
             }
@@ -79,7 +95,7 @@ module ProjectAether {
             }
             return current_set;
         }
-        spacesAreAdjacent(space1: Space, space2: Space){
+        spacesAreAdjacent(space1: Space, space2: Space) {
             return _.include(this._getNeighbors(space1), space2);
         }
         private _getNeighbors(space: Space, condition = (space: Space) => true) {
@@ -90,7 +106,7 @@ module ProjectAether {
                     this._getSpace(space.x + 0, space.y - 1),
                     this._getSpace(space.x - 1, space.y + 0),
                     this._getSpace(space.x - 1, space.y + 1)
-                ]
+            ]
             return _.filter(_.compact(spaces), condition);
         }
 

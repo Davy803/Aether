@@ -11,7 +11,10 @@ module ProjectAether.Actions {
             //Moving
             if (target instanceof Space) {
                 var space = <Space> target;
-                return this.board.findEmptySquaresWithinXSteps(this.creature.location(), this.creature.movement.current()).contains(space)
+                var sourceLocation = this.creature.location();
+                var movement = this.creature.movement.current();
+                var flying = this.creature.flying.current();
+                return this.board.findEmptySquaresWithinXSteps(sourceLocation, movement, flying).contains(space)
                         ? TargetActions.Move
                         : TargetActions.None;
             }
@@ -36,7 +39,8 @@ module ProjectAether.Actions {
             //Move
             if (target instanceof Space) {
                 var newSpace = <Space> target;
-                this.creature.move(newSpace, this.board.getDistance(this.creature, newSpace));
+                var distance = this.board.getDistance(this.creature.location(), newSpace, this.creature.flying.current());
+                this.creature.move(newSpace, distance);
                 this.creature.isSelected(false);
                 return null;
             }

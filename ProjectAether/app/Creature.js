@@ -19,6 +19,7 @@ var ProjectAether;
             this.movement = new StatNumber("movement", stats.movement);
             this.totalMovement = new StatNumber("totalMovement", stats.movement);
             this.life = new StatNumber("life", stats.life);
+            this.totalLife = new StatNumber("totalLife", stats.life);
             this.flying = new StatBool("flying", stats.flying);
             this.canMove = ko.computed(function () {
                 return _this.movement.current() > 0;
@@ -28,15 +29,19 @@ var ProjectAether;
         Creature.prototype.enterPlay = function (controller, location) {
             this.controller(controller);
             this.location(location);
+            this._applyAllBuffs();
         };
         Creature.prototype.beginTurn = function () {
-            var _this = this;
+            _.each(this._allBuffs(), function (b) {
+                return b.appliedThisTurn = false;
+            });
             this.canAttack(true);
+            this.totalMovement.reset();
+            this.totalLife.reset();
+            this.damage.reset();
             this.movement.current(this.totalMovement.current());
             this.location().owner(this.controller());
-            _.each(this._allBuffs(), function (b) {
-                return b.apply(_this);
-            });
+            this._applyAllBuffs();
         };
         Creature.prototype.attack = function (targetCreature) {
             ProjectAether.assert(this.canAttack());
@@ -66,6 +71,14 @@ var ProjectAether;
             this.location(null);
             this.controller().creaturesInPlay.remove(this);
             this.controller(null);
+        };
+        Creature.prototype._applyAllBuffs = function () {
+            var _this = this;
+            _.chain(this._allBuffs()).filter(function (b) {
+                return !b.appliedThisTurn;
+            }).each(function (b) {
+                return b.apply(_this);
+            });
         };
         return Creature;
     })();

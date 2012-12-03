@@ -5,7 +5,7 @@ module ProjectAether.Tests {
         _canPlayCard_PlayerNotHoldingCard_ReturnsFalse(c: tsUnit.TestContext) {
             var game = GameFactory.create();
             var mainPhase = new ProjectAether.Actions.MainPhase(game);
-            mainPhase._getCardAction = (c) => new ActionStub();
+            mainPhase._getCardAction = (c) => new MockAction();
             var card = new CardBase("test", 5, game.currentPlayer());
             game.currentPlayer().isHoldingCard = (card) => false;
             c.isFalsey(mainPhase._canPlayCard(card))
@@ -16,7 +16,7 @@ module ProjectAether.Tests {
             var game = GameFactory.create(player);
             player.mana(2);
             var mainPhase = new ProjectAether.Actions.MainPhase(game);
-            mainPhase._getCardAction = (c) => new ActionStub();
+            mainPhase._getCardAction = (c) => new MockAction();
             var card = CardFactory.create(player, 5)
             c.isFalsey(mainPhase._canPlayCard(card))
         }
@@ -26,7 +26,7 @@ module ProjectAether.Tests {
             var player = PlayerFactory.create();
             var game = GameFactory.create(player);
             var mainPhase = new ProjectAether.Actions.MainPhase(game);
-            mainPhase._getCardAction = (c) => new ActionStub();
+            mainPhase._getCardAction = (c) => new MockAction();
             game.hasValidNonButtonTargets = (action) => false;
             var card = CardFactory.create(player, 5)
             c.isFalsey(mainPhase._canPlayCard(card))
@@ -38,7 +38,7 @@ module ProjectAether.Tests {
             var game = GameFactory.create(player);
             
             var mainPhase = new ProjectAether.Actions.MainPhase(game);
-            mainPhase._getCardAction = (c) => new ActionStub();
+            mainPhase._getCardAction = (c) => new MockAction();
             
             player.mana(10);
             game.currentPlayer().isHoldingCard = (card) => true;
